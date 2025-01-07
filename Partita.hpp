@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Giocatore.hpp"
 #include "Impostazioni.hpp"
+#include "Casella.hpp"
 
 class Partita
 {
