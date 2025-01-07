@@ -1,10 +1,12 @@
 #include <iostream>
 #include "Giocatore.hpp"
+#include "Impostazioni.hpp"
 
 class Partita
 {
 private:
 	Giocatore g1, g2;
+	Impostazioni i;
 public:
 	Partita();
 	bool creaTurno(Giocatore g);
