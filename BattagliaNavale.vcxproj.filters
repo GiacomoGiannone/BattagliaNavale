@@ -23,5 +23,11 @@
     <ClInclude Include="BattagliaNavale.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Giocatore.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Partita.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

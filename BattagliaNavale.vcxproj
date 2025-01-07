@@ -131,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattagliaNavale.hpp" />
+    <ClInclude Include="Giocatore.hpp" />
+    <ClInclude Include="Partita.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
