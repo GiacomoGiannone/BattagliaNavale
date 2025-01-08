@@ -12,6 +12,7 @@ private:
 	std::vector<Nave> ListaNavi;
 public:
 	BattagliaNavale();
+	void IniziaTurnoSchieramento(Giocatore g, Partita p);
 	bool ScegliNave(int idNave);
 	bool ScegliPosizione(int x, char y, std::string direction);
 	bool ScegliPosizione(int x, char y, std::string direction, int dim);
