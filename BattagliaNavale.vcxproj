@@ -133,9 +133,11 @@
   <ItemGroup>
     <ClInclude Include="Attacco.hpp" />
     <ClInclude Include="BattagliaNavale.hpp" />
+    <ClInclude Include="Bot.hpp" />
     <ClInclude Include="Casella.hpp" />
     <ClInclude Include="Corazzata.hpp" />
     <ClInclude Include="Giocatore.hpp" />
+    <ClInclude Include="GiocatoreUmano.hpp" />
     <ClInclude Include="Griglia.hpp" />
     <ClInclude Include="Impostazioni.hpp" />
     <ClInclude Include="Incrociatore.hpp" />

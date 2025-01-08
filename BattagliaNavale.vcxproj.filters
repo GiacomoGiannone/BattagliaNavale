@@ -74,5 +74,11 @@
     <ClInclude Include="TurnoSchieramento.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="GiocatoreUmano.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
