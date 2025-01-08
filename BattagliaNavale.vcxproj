@@ -145,6 +145,8 @@
     <ClInclude Include="Sottomarino.hpp" />
     <ClInclude Include="StatoCasella.hpp" />
     <ClInclude Include="Turno.hpp" />
+    <ClInclude Include="TurnoAttacco.hpp" />
+    <ClInclude Include="TurnoSchieramento.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

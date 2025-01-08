@@ -65,5 +65,11 @@
     <ClInclude Include="Portaerei.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="TurnoAttacco.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnoSchieramento.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

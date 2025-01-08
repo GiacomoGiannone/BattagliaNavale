@@ -6,5 +6,5 @@ private:
 public:
 	Turno();
 	~Turno();
-	void CreateAttacco(int x, char y);
+	virtual void CreateAttacco(int x, char y) = 0;
 };
