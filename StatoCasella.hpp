@@ -10,5 +10,5 @@ private:
 	Stato stato;
 public:
 	StatoCasella();
-	~StatoCasella();
+	~StatoCasella() {};
 };

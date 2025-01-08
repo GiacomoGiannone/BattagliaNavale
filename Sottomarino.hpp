@@ -1,9 +1,14 @@
-#include <iostream>
+#pragma once
 #include "Nave.hpp"
 
 class Sottomarino : public Nave
 {
 public:
-	Sottomarino();
-	~Sottomarino();
+    Sottomarino() : Nave(3) {} // Dimensione del Sottomarino
+    ~Sottomarino() override = default;
+
+    std::string getNome() const override
+    {
+        return "Sottomarino";
+    }
 };

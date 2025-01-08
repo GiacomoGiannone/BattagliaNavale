@@ -6,8 +6,8 @@
 class NaveSchierata
 {
 private:
-	Nave n;
+	Nave *n;
 public:
-	NaveSchierata(Nave _n);
+	NaveSchierata(Nave *_n);
 	Nave getNave();
 };

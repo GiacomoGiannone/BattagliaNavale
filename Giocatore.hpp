@@ -7,7 +7,7 @@ class Giocatore
 {
 private:
 	std::string nickname;
-	std::vector<Turno> ListaTurni;
+	std::vector<Turno*> ListaTurni;
 public:
 	Giocatore(std::string _nickname);
 };

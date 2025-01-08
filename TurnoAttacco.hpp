@@ -11,5 +11,8 @@ public:
 	TurnoAttacco();
 	~TurnoAttacco();
 
-	void CreateAttacco(int x, char y);
+	void CreateAttacco(int x, char y) const
+	{
+		std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
+	}
 };

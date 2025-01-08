@@ -1,7 +1,10 @@
 #include <iostream>
+#include "BattagliaNavale.hpp"
+
 
 int main()
 {
-	std::cout << "Hello, World!" << std::endl;
-	return 0;
+    BattagliaNavale gioco;
+    gioco.ScegliNave(3);
+    return 0;
 }

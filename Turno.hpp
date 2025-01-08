@@ -7,6 +7,6 @@ class Turno
 private:
 public:
 	Turno();
-	~Turno();
-	virtual void CreateAttacco(int x, char y) = 0;
+	~Turno() {};
+	virtual void CreateAttacco(int x, char y) const = 0;
 };

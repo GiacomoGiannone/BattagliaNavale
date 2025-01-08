@@ -9,9 +9,10 @@ class BattagliaNavale
 private:
 	std::vector<Partita> ListaPartite;
 	std::vector<Giocatore> ListaGiocatori;
-	std::vector<Nave> ListaNavi;
+	std::vector<std::unique_ptr<Nave>> ListaNavi;
 public:
 	BattagliaNavale();
+	~BattagliaNavale();
 	void IniziaTurnoSchieramento(Giocatore g, Partita p);
 	bool ScegliNave(int idNave);
 	bool ScegliPosizione(int x, char y, std::string direction);

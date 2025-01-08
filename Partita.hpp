@@ -12,11 +12,11 @@ private:
 	Giocatore g1, g2;
 	Impostazioni i;
 	std::vector<Turno> ListaTurni;
-	TurnoAttacco t;
+	Turno* t;
 	Griglia griglie[4];
 public:
 	Partita();
-	bool creaTurno(Giocatore g);
+	bool creaTurno(Giocatore g) { return true; }
 	bool ScegliPosizione(int x, char y, std::string direction, int dim);
 	void AggiornaGriglia();
 	Casella FindCasella(int x, char y);
