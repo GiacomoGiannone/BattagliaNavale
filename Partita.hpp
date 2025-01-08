@@ -4,6 +4,7 @@
 #include "Casella.hpp"
 #include "Turno.hpp"
 #include "TurnoAttacco.hpp"
+#include "Griglia.hpp"
 
 class Partita
 {
@@ -12,6 +13,7 @@ private:
 	Impostazioni i;
 	std::vector<Turno> ListaTurni;
 	TurnoAttacco t;
+	Griglia griglie[4];
 public:
 	Partita();
 	bool creaTurno(Giocatore g);

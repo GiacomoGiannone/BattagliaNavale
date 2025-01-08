@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include "StatoCasella.hpp"
 #include "NaveSchierata.hpp"
