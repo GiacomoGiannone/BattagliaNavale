@@ -10,6 +10,7 @@ private:
 	Giocatore g1, g2;
 	Impostazioni i;
 	std::vector<Turno> ListaTurni;
+	Turno t;
 public:
 	Partita();
 	bool creaTurno(Giocatore g);
