@@ -130,6 +130,7 @@
     <ClCompile Include="BattagliaNavale.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Attacco.hpp" />
     <ClInclude Include="BattagliaNavale.hpp" />
     <ClInclude Include="Casella.hpp" />
     <ClInclude Include="Giocatore.hpp" />
