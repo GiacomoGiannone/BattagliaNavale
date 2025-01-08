@@ -2,12 +2,14 @@
 #include "Giocatore.hpp"
 #include "Impostazioni.hpp"
 #include "Casella.hpp"
+#include "Turno.hpp"
 
 class Partita
 {
 private:
 	Giocatore g1, g2;
 	Impostazioni i;
+	std::vector<Turno> ListaTurni;
 public:
 	Partita();
 	bool creaTurno(Giocatore g);
