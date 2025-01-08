@@ -50,5 +50,8 @@
     <ClInclude Include="Nave.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Turno.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

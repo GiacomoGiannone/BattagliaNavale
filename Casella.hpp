@@ -1,5 +1,6 @@
 #include <iostream>
 #include "StatoCasella.hpp"
+#include "NaveSchierata.hpp"
 
 class Casella
 {

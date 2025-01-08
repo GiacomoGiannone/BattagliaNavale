@@ -2,12 +2,14 @@
 #include <vector>
 #include "Partita.hpp"
 #include "Giocatore.hpp"
+#include "Nave.hpp"
 
 class BattagliaNavale
 {
 private:
 	std::vector<Partita> ListaPartite;
 	std::vector<Giocatore> ListaGiocatori;
+	std::vector<Nave> ListaNavi;
 public:
 	BattagliaNavale();
 	bool ScegliNave(int idNave);
