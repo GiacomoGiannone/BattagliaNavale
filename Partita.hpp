@@ -3,6 +3,7 @@
 #include "Impostazioni.hpp"
 #include "Casella.hpp"
 #include "Turno.hpp"
+#include "TurnoAttacco.hpp"
 
 class Partita
 {
@@ -10,7 +11,7 @@ private:
 	Giocatore g1, g2;
 	Impostazioni i;
 	std::vector<Turno> ListaTurni;
-	Turno t;
+	TurnoAttacco t;
 public:
 	Partita();
 	bool creaTurno(Giocatore g);
