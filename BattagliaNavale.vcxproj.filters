@@ -44,5 +44,11 @@
     <ClInclude Include="StatoCasella.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="NaveSchierata.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Nave.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
