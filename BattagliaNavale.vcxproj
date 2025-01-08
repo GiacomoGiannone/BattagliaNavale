@@ -137,6 +137,7 @@
     <ClInclude Include="Griglia.hpp" />
     <ClInclude Include="Impostazioni.hpp" />
     <ClInclude Include="Partita.hpp" />
+    <ClInclude Include="StatoCasella.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

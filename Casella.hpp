@@ -1,4 +1,5 @@
 #include <iostream>
+#include "StatoCasella.hpp"
 
 class Casella
 {

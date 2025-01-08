@@ -41,5 +41,8 @@
     <ClInclude Include="Attacco.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="StatoCasella.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
