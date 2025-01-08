@@ -11,5 +11,5 @@ public:
 	TurnoAttacco();
 	~TurnoAttacco();
 
-	void CreateAttacco(int x, char y) override;
+	void CreateAttacco(int x, char y);
 };
