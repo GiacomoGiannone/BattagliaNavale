@@ -5,6 +5,6 @@
 int main()
 {
     BattagliaNavale gioco;
-    gioco.ScegliNave(3);
+    gioco.ScegliNave();
     return 0;
 }

@@ -4,7 +4,7 @@
 class Portaerei : public Nave
 {
 public:
-    Portaerei() : Nave(5) {} // Dimensione della Portaerei
+    Portaerei() : Nave(5) {}
     ~Portaerei() override = default;
 
     std::string getNome() const override

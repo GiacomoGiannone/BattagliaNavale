@@ -7,18 +7,20 @@
 class BattagliaNavale
 {
 private:
-	std::vector<Partita> ListaPartite;
+	std::vector<Partita*> ListaPartite;
 	std::vector<Giocatore> ListaGiocatori;
 	std::vector<std::unique_ptr<Nave>> ListaNavi;
+
+	Nave* naveSelezionata;
 public:
 	BattagliaNavale();
 	~BattagliaNavale();
 	void IniziaTurnoSchieramento(Giocatore g, Partita p);
-	bool ScegliNave(int idNave);
+	bool ScegliNave();
 	bool ScegliPosizione(int x, char y, std::string direction);
-	bool ScegliPosizione(int x, char y, std::string direction, int dim);
+	//bool ScegliPosizione(int x, char y, std::string direction, int dim);
 	bool ConfermaPiazzamentoNavi();
-	bool ScegliPosizioneAttacco(int x, char y);
+	void ScegliPosizioneAttacco(int x, char y);
 	void AggiornaGriglia();
 	void IniziaNuovaPartita();
 	void Scegli_Impostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, std::string nomeAvversario);

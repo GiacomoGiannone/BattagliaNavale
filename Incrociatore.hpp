@@ -4,7 +4,7 @@
 class Incrociatore : public Nave
 {
 public:
-    Incrociatore() : Nave(2) {} // Inizializza la dimensione nel costruttore base
+    Incrociatore() : Nave(2) {}
     ~Incrociatore() override = default;
 
     std::string getNome() const override
