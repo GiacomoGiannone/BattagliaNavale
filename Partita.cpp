@@ -5,15 +5,14 @@ Giocatore Partita::getInstanceByNick(std::string nick)
 	return (g1.getNickname() == nick) ? g1 : g2;
 }
 
-Partita::Partita(Giocatore _g1, Giocatore _g2)
+Partita::Partita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
 {
 	stato = attiva;
 
-	Griglia* griglia1 = new Griglia();
-	Griglia* griglia2 = new Griglia();
-
-	mapGiocatoreGriglie[g1] = griglia1;
-	mapGiocatoreGriglie[g2] = griglia2;
+	griglia_attacchi_1 = _griglia_attacchi_1;
+	griglia_attacchi_2 = _griglia_attacchi_2;
+	griglia_posizioni_1 = _griglia_posizioni_1;
+	griglia_posizioni_2 = _griglia_posizioni_2;
 }
 
 bool Partita::creaTurno(Giocatore g)
@@ -30,13 +29,13 @@ bool Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 	std::string nickGiocatore = t->getNickGiocatore();
 	Giocatore giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
-	Griglia* grigliaCorrente = mapGiocatoreGriglie[giocatoreCorrente];
-	if (!grigliaCorrente) 
+	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore().getNickname() == giocatoreCorrente.getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
+	/*if (!grigliaCorrente)
 	{
 		std::cerr << "Errore: nessuna griglia trovata per il giocatore corrente." << std::endl;
 		return false;
-	}
+	}*/
 
-	bool esito = grigliaCorrente->ScegliPosizione(x, y, direction, dim);
+	bool esito = grigliaCorrente.ScegliPosizione(x, y, direction, dim);
 	return true;
 }

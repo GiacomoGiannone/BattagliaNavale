@@ -15,7 +15,7 @@ public:
 
 	bool operator<(const Giocatore& other) const
 	{
-		return nickname < other.nickname;  // Confronto basato sul nome
+		return nickname < other.nickname; 
 	}
 
 	std::string getNickname() const { return nickname; }

@@ -18,14 +18,16 @@ private:
 	Impostazioni *i;
 	std::vector<Turno*> ListaTurni;
 	Turno* t;
-	std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
+	//std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
+	Griglia griglia_attacchi_1, griglia_attacchi_2;
+	Griglia griglia_posizioni_1, griglia_posizioni_2;
 	Stato stato;
 
 	Giocatore getInstanceByNick(std::string nick);
 
 public:
 	Partita() {};
-	Partita(Giocatore _g1, Giocatore _g2);
+	Partita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2);
 	bool creaTurno(Giocatore g);
 	bool ScegliPosizione(int x, char y, std::string direction, int dim);
 	void AggiornaGriglia() {};
