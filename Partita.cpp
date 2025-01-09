@@ -1,5 +1,10 @@
 #include "Partita.hpp"
 
+Giocatore Partita::getInstanceByNick(std::string nick)
+{
+	return (g1.getNickname() == nick) ? g1 : g2;
+}
+
 Partita::Partita(Giocatore _g1, Giocatore _g2)
 {
 	stato = attiva;
@@ -13,14 +18,17 @@ Partita::Partita(Giocatore _g1, Giocatore _g2)
 
 bool Partita::creaTurno(Giocatore g)
 {
-	std::cout << "Creo turno" << std::endl;
-	t = new TurnoSchieramento(g);
+	std::cout << "Creo turno di schieramento del giocatore "<< g.getNickname() << std::endl;
+	std::string nickGiocatore = g.getNickname();
+	t = new TurnoSchieramento(nickGiocatore);
+	//alla fine del turno di schieramento di g, fai delete t in modo da poter creare un nuovo turno per g2
 	return true;
 }
 
 bool Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 {
-	Giocatore giocatoreCorrente = t->getGiocatore();
+	std::string nickGiocatore = t->getNickGiocatore();
+	Giocatore giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
 	Griglia* grigliaCorrente = mapGiocatoreGriglie[giocatoreCorrente];
 	if (!grigliaCorrente) 
@@ -30,5 +38,5 @@ bool Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 	}
 
 	bool esito = grigliaCorrente->ScegliPosizione(x, y, direction, dim);
-	return esito;
+	return true;
 }

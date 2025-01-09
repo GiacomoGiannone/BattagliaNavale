@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+
 #include "Giocatore.hpp"
 #include "Impostazioni.hpp"
 #include "Casella.hpp"
@@ -19,7 +20,11 @@ private:
 	Turno* t;
 	std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
 	Stato stato;
+
+	Giocatore getInstanceByNick(std::string nick);
+
 public:
+	Partita() {};
 	Partita(Giocatore _g1, Giocatore _g2);
 	bool creaTurno(Giocatore g);
 	bool ScegliPosizione(int x, char y, std::string direction, int dim);

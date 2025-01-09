@@ -13,7 +13,7 @@ private:
 	std::vector<Attacco> ListaAttacchi;
 public:
 	Griglia() {};
-	bool ScegliPosizione(int x, char y, std::string direction, int dim);
+	bool ScegliPosizione(int x, char y, std::string direction, int dim) { return true; };
 	Casella FindCasella(int x, char y);
 	void AggiornaGriglia();
 };

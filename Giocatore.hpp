@@ -12,4 +12,11 @@ private:
 public:
 	Giocatore() {};
 	Giocatore(std::string _nickname) {};
+
+	bool operator<(const Giocatore& other) const
+	{
+		return nickname < other.nickname;  // Confronto basato sul nome
+	}
+
+	std::string getNickname() const { return nickname; }
 };

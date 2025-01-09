@@ -2,20 +2,16 @@
 
 #include <iostream>
 #include "Turno.hpp"
-#include "Giocatore.hpp"
 
 class TurnoSchieramento : public Turno
 {
-private:
-	Giocatore giocatore;
 public:
-	TurnoSchieramento(Giocatore _giocatore) { giocatore = _giocatore; }
-	~TurnoSchieramento() {};
+    // Costruttore che utilizza il nickname del giocatore
+    TurnoSchieramento(const std::string& _nickGiocatore) : Turno(_nickGiocatore) {}
+    ~TurnoSchieramento() {}
 
-	void CreateAttacco(int x, char y) const override 
-	{
-		std::cout << "TurnoSchieramento non gestisce attacchi." << std::endl;
-	}
-
-	Giocatore getGiocatore() const { return giocatore; }
+    void CreateAttacco(int x, char y) const override
+    {
+        std::cout << "TurnoSchieramento non gestisce attacchi." << std::endl;
+    }
 };
