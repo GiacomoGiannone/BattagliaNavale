@@ -9,4 +9,5 @@ public:
 	Turno();
 	~Turno() {};
 	virtual void CreateAttacco(int x, char y) const = 0;
+	virtual Giocatore getGiocatore() const = 0;
 };

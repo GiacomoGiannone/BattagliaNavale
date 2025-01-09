@@ -1,10 +1,12 @@
 #include <iostream>
+#include <map>
 #include "Giocatore.hpp"
 #include "Impostazioni.hpp"
 #include "Casella.hpp"
 #include "Turno.hpp"
 #include "TurnoAttacco.hpp"
 #include "Griglia.hpp"
+#include "TurnoSchieramento.hpp"
 
 class Partita
 {
@@ -15,12 +17,12 @@ private:
 	Impostazioni *i;
 	std::vector<Turno*> ListaTurni;
 	Turno* t;
-	Griglia griglie[4];
+	std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
 	Stato stato;
 public:
-	Partita() { stato = attiva; };
-	bool creaTurno(Giocatore g) { return true; }
-	bool ScegliPosizione(int x, char y, std::string direction, int dim) {};
+	Partita(Giocatore _g1, Giocatore _g2);
+	bool creaTurno(Giocatore g);
+	bool ScegliPosizione(int x, char y, std::string direction, int dim);
 	void AggiornaGriglia() {};
 	void FindCasella(int x, char y) {};
 	bool GeneraEsito(StatoCasella stato);

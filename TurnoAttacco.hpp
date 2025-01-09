@@ -7,6 +7,7 @@ class TurnoAttacco : public Turno
 {
 private:
 	std::vector<Attacco> Lista_Attacchi;
+	Giocatore giocatore;
 public:
 	TurnoAttacco();
 	~TurnoAttacco();
@@ -15,4 +16,6 @@ public:
 	{
 		std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
 	}
+
+	Giocatore getGiocatore() const { return giocatore; }
 };

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="BattagliaNavale.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Partita.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attacco.hpp" />

@@ -73,9 +73,10 @@ bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 	{
 		if (p->getStato() == Partita::attiva)
 		{
-			p->ScegliPosizione(x, y, direction, dim);
+			return p->ScegliPosizione(x, y, direction, dim);
 		}
 	}
+	return false;
 }
 
 bool BattagliaNavale::ConfermaPiazzamentoNavi()
