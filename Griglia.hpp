@@ -15,7 +15,7 @@ public:
 	Griglia() {};
 	Griglia(std::pair<int, int> _dim, Giocatore _g);
 	bool ScegliPosizione(int x, char y, std::string direction, int dim);
-	Casella FindCasella(int x, char y);
+	Casella* FindCasella(int x, char y);
 	void AggiornaGriglia();
 	Giocatore getGiocatore() { return g; }
 };
