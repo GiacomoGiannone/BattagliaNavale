@@ -14,7 +14,7 @@
 class Partita
 {
 public :
-	enum Stato { attiva, finita, nonInizializzata };
+	enum Stato { attiva, finita };
 private:
 	Giocatore g1,g2;
 	Impostazioni *i;
@@ -37,7 +37,7 @@ public:
 	std::vector<Casella*> ScegliPosizione(int x, char y, std::string direction, int dim);
 	void AggiornaGriglia();
 	void FindCasella(int x, char y);
-	void CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, std::string nomeAvversario) {};
+	void CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, int numNavi, std::string nomeAvversario);
 	Stato getStato();
 	void ToggleState();
 	void addNave(NaveSchierata* nave);

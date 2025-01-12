@@ -144,3 +144,8 @@ void Partita::AggiornaGriglia()
 	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore().getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
 	grigliaCorrente.AggiornaGriglia();*/
 }
+
+void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia,int numNavi,  std::string nomeAvversario)
+{
+	i = new Impostazioni(giocatoreUmano, dimGriglia, numNavi);
+}

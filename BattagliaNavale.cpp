@@ -132,13 +132,13 @@ void BattagliaNavale::IniziaNuovaPartita(Giocatore _g1, Giocatore _g2, Griglia _
 	ListaPartite.push_back(p);
 }
 
-void BattagliaNavale::Scegli_Impostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, std::string nomeAvversario)
+void BattagliaNavale::Scegli_Impostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, int numNavi, std::string nomeAvversario)
 {
 	for (auto& p : ListaPartite)
 	{
 		if (p->getStato() == Partita::attiva)
 		{
-			p->CreaImpostazioni(giocatoreUmano, dimGriglia, nomeAvversario);
+			p->CreaImpostazioni(giocatoreUmano, dimGriglia, numNavi, nomeAvversario);
 		}
 	}
 }

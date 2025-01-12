@@ -12,7 +12,6 @@
 
 class Giocatore;
 
-
 class Griglia
 {
 private:
