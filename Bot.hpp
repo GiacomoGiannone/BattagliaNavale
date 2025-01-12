@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Giocatore.hpp"
 
-class Bot: Giocatore
+class Bot: public Giocatore
 {
 private:
+	std::string nickname;
 public:
-	Bot();
-	~Bot();
+	Bot(std::string _nickname) : nickname(_nickname) {};
+	~Bot() {};
 };

@@ -15,7 +15,8 @@ private:
 	std::vector<Turno*> ListaTurni;
 public:
 	Giocatore() {};
-	Giocatore(std::string _nickname) {};
+	Giocatore(std::string _nickname) : nickname(_nickname) {};
+	Giocatore(const Giocatore& other) : nickname(other.nickname), ListaTurni(other.ListaTurni) {}
 
 	bool operator<(const Giocatore& other) const
 	{

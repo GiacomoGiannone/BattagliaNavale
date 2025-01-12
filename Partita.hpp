@@ -16,7 +16,7 @@ class Partita
 public :
 	enum Stato { attiva, finita };
 private:
-	Giocatore g1,g2;
+	Giocatore *g1,*g2;
 	Impostazioni *i;
 	std::vector<Turno*> ListaTurni;
 	Turno* t;
@@ -27,7 +27,7 @@ private:
 	std::vector<NaveSchierata*> navi;
 	Stato statoInterno;
 
-	Giocatore getInstanceByNick(std::string nick);
+	Giocatore* getInstanceByNick(std::string nick);
 	bool GeneraEsito(StatoCasella stato);
 
 public:

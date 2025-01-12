@@ -1,10 +1,12 @@
 #include "Partita.hpp"
 #include "TurnoSchieramento.hpp"
 #include "TurnoAttacco.hpp"
+#include "GiocatoreUmano.hpp"
+#include "Bot.hpp"
 
-Giocatore Partita::getInstanceByNick(std::string nick)
+Giocatore* Partita::getInstanceByNick(std::string nick)
 {
-	return (g1.getNickname() == nick) ? g1 : g2;
+	return ( g1->getNickname() == nick) ? g1 : g2;
 }
 
 Partita::Partita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
@@ -29,9 +31,9 @@ bool Partita::creaTurno(Giocatore g)
 std::vector<Casella*> Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 {
 	std::string nickGiocatore = t->getNickGiocatore();
-	Giocatore giocatoreCorrente = getInstanceByNick(nickGiocatore);
+	Giocatore *giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
-	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == giocatoreCorrente.getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
+	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == giocatoreCorrente->getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
 	/*if (!grigliaCorrente)
 	{
 		std::cerr << "Errore: nessuna griglia trovata per il giocatore corrente." << std::endl;
@@ -63,13 +65,13 @@ void Partita::FindCasella(int x, char y)
 	//accedi all'ultimo turno per capire chi è il giocatore corrente
 	std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
 	Giocatore* gTemp; //gTemp è il giocatore che deve attaccare
-	if (g1.getNickname() == lastPlayer)
+	if (g1->getNickname() == lastPlayer)
 	{
-		gTemp = new Giocatore(g2);
+		gTemp = new Giocatore(*g2);
 	}
 	else
 	{
-		gTemp = new Giocatore(g1);
+		gTemp = new Giocatore(*g1);
 	}
 	t = new TurnoAttacco(gTemp->getNickname());
 	//accedi alla griglia di attacco del giocatore corrente
@@ -148,4 +150,12 @@ void Partita::AggiornaGriglia()
 void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia,int numNavi,  std::string nomeAvversario)
 {
 	i = new Impostazioni(giocatoreUmano, dimGriglia, numNavi);
+	if (giocatoreUmano)
+	{
+		g2 = new GiocatoreUmano(nomeAvversario);
+	}
+	else
+	{
+		g2 = new Bot(nomeAvversario);
+	}
 }
