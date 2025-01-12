@@ -1,8 +1,12 @@
 #pragma once
 
+#ifndef GIOCATORE_HPP
+#define GIOCATORE_HPP
+
 #include <iostream>
-#include "Turno.hpp"
 #include <vector>
+
+#include "Turno.hpp"
 
 class Giocatore 
 {
@@ -20,3 +24,5 @@ public:
 
 	std::string getNickname() const { return nickname; }
 };
+
+#endif

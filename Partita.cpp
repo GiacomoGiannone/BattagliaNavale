@@ -1,4 +1,6 @@
 #include "Partita.hpp"
+#include "TurnoSchieramento.hpp"
+#include "TurnoAttacco.hpp"
 
 Giocatore Partita::getInstanceByNick(std::string nick)
 {
@@ -24,18 +26,121 @@ bool Partita::creaTurno(Giocatore g)
 	return true;
 }
 
-bool Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
+std::vector<Casella*> Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 {
 	std::string nickGiocatore = t->getNickGiocatore();
 	Giocatore giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
-	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore().getNickname() == giocatoreCorrente.getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
+	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == giocatoreCorrente.getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
 	/*if (!grigliaCorrente)
 	{
 		std::cerr << "Errore: nessuna griglia trovata per il giocatore corrente." << std::endl;
 		return false;
 	}*/
 
-	bool esito = grigliaCorrente.ScegliPosizione(x, y, direction, dim);
-	return true;
+	return grigliaCorrente.ScegliPosizione(x, y, direction, dim);
+}
+
+void Partita::ToggleState()
+{
+	stato = (stato == attiva) ? finita : attiva;
+}
+
+void Partita::addNave(NaveSchierata* nave)
+{
+	navi.push_back(nave);
+}
+
+void Partita::ResetTurnoSchieramento()
+{
+	std::cout << "Resetto il turno di schieramento" << std::endl;
+	ListaTurni.push_back(t);
+	delete t;
+}
+
+void Partita::FindCasella(int x, char y)
+{
+	//accedi all'ultimo turno per capire chi è il giocatore corrente
+	std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
+	Giocatore* gTemp; //gTemp è il giocatore che deve attaccare
+	if (g1.getNickname() == lastPlayer)
+	{
+		gTemp = new Giocatore(g2);
+	}
+	else
+	{
+		gTemp = new Giocatore(g1);
+	}
+	t = new TurnoAttacco(gTemp->getNickname());
+	//accedi alla griglia di attacco del giocatore corrente
+	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
+	//cerca la casella x,y
+	Casella* casella = grigliaCorrente.FindCasella(x, y);
+
+	if (casella)
+	{
+		// Ottieni lo stato della casella
+		StatoCasella stato = casella->getStato();
+
+		//std::cout << "Lo stato della casella (" << x << ", " << y << ") è: " << stato << std::endl;
+
+		if (stato == StatoCasella::acqua)
+		{
+			std::cout << "Casella acqua!" << std::endl;
+		}
+		else if (stato == StatoCasella::occupata)
+		{
+			std::cout << "Casella occupata!" << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Casella non trovata!" << std::endl;
+	}
+
+	bool esito = GeneraEsito(casella->getStato());
+	t->CreateAttacco(x, y, grigliaCorrente, esito);
+	//conferma il turno di attacco e cancella il turno corrente
+	ListaTurni.push_back(t);
+	delete t;
+}
+
+bool Partita::GeneraEsito(StatoCasella stato)
+{
+	if (stato == StatoCasella::acqua)
+	{
+		std::cout << "Acqua!" << std::endl;
+		return false;
+	}
+	else if (stato == StatoCasella::occupata)
+	{
+		std::cout << "Colpito!" << std::endl;
+		return true;
+	}
+	else
+	{
+		std::cout << "Errore!" << std::endl;
+		return false;
+	}
+}
+
+Partita::Stato Partita::getStato()
+{
+	return stato;
+}
+
+void Partita::AggiornaGriglia()
+{
+	/*std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
+	Giocatore* gTemp; //gTemp è il giocatore che deve attaccare
+	if (g1.getNickname() == lastPlayer)
+	{
+		gTemp = new Giocatore(g2);
+	}
+	else
+	{
+		gTemp = new Giocatore(g1);
+	}
+	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore().getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
+	grigliaCorrente.AggiornaGriglia();*/
 }

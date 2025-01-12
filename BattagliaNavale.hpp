@@ -1,5 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
+
 #include "Partita.hpp"
 #include "Giocatore.hpp"
 #include "Nave.hpp"
@@ -22,7 +25,7 @@ public:
 	bool ConfermaPiazzamentoNavi();
 	void ScegliPosizioneAttacco(int x, char y);
 	void AggiornaGriglia();
-	void IniziaNuovaPartita();
+	void IniziaNuovaPartita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2);
 	void Scegli_Impostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, std::string nomeAvversario);
 	void ConfermaImpostazioni();
 };

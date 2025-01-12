@@ -4,6 +4,7 @@
 #include "Portaerei.hpp"
 #include "Sottomarino.hpp"
 
+
 BattagliaNavale::BattagliaNavale()
 {
 	ListaNavi.push_back(std::make_unique<Incrociatore>());
@@ -73,7 +74,15 @@ bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 	{
 		if (p->getStato() == Partita::attiva)
 		{
-			return p->ScegliPosizione(x, y, direction, dim);
+			std::vector<Casella*> caselle = p->ScegliPosizione(x, y, direction, dim);
+			if (caselle.empty())
+			{
+				std::cout << "Posizione non valida!" << std::endl;
+				return false;
+			}
+
+			NaveSchierata* nave = new NaveSchierata(naveSelezionata, caselle);
+			p->addNave(nave);
 		}
 	}
 	return false;
@@ -87,6 +96,7 @@ bool BattagliaNavale::ConfermaPiazzamentoNavi()
 		if (p->getStato() == Partita::attiva)
 		{
 			ListaPartite.push_back(p);
+			p->ResetTurnoSchieramento();
 			return true;
 		}
 	}
@@ -115,10 +125,10 @@ void BattagliaNavale::AggiornaGriglia()
 	}
 }
 
-void BattagliaNavale::IniziaNuovaPartita()
+void BattagliaNavale::IniziaNuovaPartita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
 {
 	std::cout << "Inizia nuova partita" << std::endl;
-	Partita* p = new Partita();
+	Partita* p = new Partita(_g1, _g2, _griglia_attacchi_1, _griglia_attacchi_2, _griglia_posizioni_1, _griglia_posizioni_2);
 	ListaPartite.push_back(p);
 }
 

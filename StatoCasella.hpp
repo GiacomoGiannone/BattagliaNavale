@@ -23,4 +23,21 @@ public:
     {
         return stato == s;
     }
+
+	std::ostream& operator<<(std::ostream& os) const
+	{
+		switch (stato)
+		{
+		case acqua:
+			os << "Acqua";
+			break;
+		case occupata:
+			os << "Occupata";
+			break;
+		default:
+			os << "Stato non valido";
+			break;
+		}
+		return os;
+	}
 };

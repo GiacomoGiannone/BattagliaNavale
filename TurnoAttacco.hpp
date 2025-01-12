@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include "Turno.hpp"
-#include "Attacco.hpp"
+
+
 
 class TurnoAttacco : public Turno
 {
@@ -14,8 +14,9 @@ public:
     TurnoAttacco(const std::string& _nickGiocatore) : Turno(_nickGiocatore) {}
     ~TurnoAttacco() {}
 
-    void CreateAttacco(int x, char y) const override
+    void CreateAttacco(int x, char y, Griglia griglia, bool esito) 
     {
         std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
+		griglia.CreateAttacco(x, y, esito);
     }
 };
