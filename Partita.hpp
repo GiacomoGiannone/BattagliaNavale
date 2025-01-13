@@ -44,6 +44,7 @@ public:
 	void ResetTurnoSchieramento();
 	void StampaGriglieG1();
 	void StampaGriglieG2();
+	void StampaNavi();
 };
 
 #endif

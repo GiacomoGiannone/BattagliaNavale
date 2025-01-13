@@ -187,3 +187,11 @@ void Partita::StampaGriglieG2()
 {
 	griglia_posizioni_2->StampaGriglia();
 }
+
+void Partita::StampaNavi()
+{
+	for (auto& naveSchierata : navi)
+	{
+		naveSchierata->PrintInfo();
+	}
+}

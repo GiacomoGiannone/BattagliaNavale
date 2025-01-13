@@ -84,6 +84,7 @@ bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 
 			NaveSchierata* nave = new NaveSchierata(naveSelezionata, caselle);
 			p->addNave(nave);
+			p->StampaNavi();
 			return true;
 		}
 	}

@@ -5,10 +5,10 @@ std::ostream& operator<<(std::ostream& os, const Casella& casella)
     switch (casella.stato.getStato())
     {
     case StatoCasella::Stato::acqua:
-        os << "Acqua";
+        os << casella.coordinata_x << casella.coordinata_y;
         break;
     case StatoCasella::Stato::occupata:
-        os << "Occupata";
+        os << casella.coordinata_x << casella.coordinata_y;
         break;
     default:
         os << "Stato non valido";
