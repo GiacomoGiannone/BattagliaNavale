@@ -10,7 +10,7 @@ public:
     TurnoSchieramento(const std::string& _nickGiocatore) : Turno(_nickGiocatore) {}
     ~TurnoSchieramento() {}
 
-    void CreateAttacco(int x, char y, Griglia griglia, bool esito)
+    void CreateAttacco(int x, char y, Griglia* griglia, bool esito)
     {
         std::cout << "TurnoSchieramento non gestisce attacchi." << std::endl;
     }

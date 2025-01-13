@@ -9,7 +9,7 @@ Giocatore* Partita::getInstanceByNick(std::string nick)
 	return (g1->getNickname() == nick) ? g1 : g2;
 }
 
-Partita::Partita(Giocatore* _g1, Giocatore* _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
+Partita::Partita(Giocatore* _g1, Giocatore* _g2, Griglia *_griglia_attacchi_1, Griglia *_griglia_attacchi_2, Griglia *_griglia_posizioni_1, Griglia* _griglia_posizioni_2)
 {
 	stato = attiva;
 
@@ -41,14 +41,14 @@ std::vector<Casella*> Partita::ScegliPosizione(int x, char y, std::string direct
 	std::string nickGiocatore = t->getNickGiocatore();
 	Giocatore *giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
-	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == giocatoreCorrente->getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
+	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == giocatoreCorrente->getNickname()) ?  griglia_posizioni_1 : griglia_posizioni_2;
 	/*if (!grigliaCorrente)
 	{
 		std::cerr << "Errore: nessuna griglia trovata per il giocatore corrente." << std::endl;
 		return false;
 	}*/
 
-	return grigliaCorrente.ScegliPosizione(x, y, direction, dim);
+	return grigliaCorrente->ScegliPosizione(x, y, direction, dim);
 }
 
 void Partita::ToggleState()
@@ -83,9 +83,9 @@ void Partita::FindCasella(int x, char y)
 	}
 	t = new TurnoAttacco(gTemp->getNickname());
 	//accedi alla griglia di attacco del giocatore corrente
-	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore()->getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
+	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
 	//cerca la casella x,y
-	Casella* casella = grigliaCorrente.FindCasella(x, y);
+	Casella* casella = grigliaCorrente->FindCasella(x, y);
 
 	if (casella)
 	{
@@ -166,4 +166,13 @@ void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGrigl
 	{
 		g2 = new Bot(nomeAvversario);
 	}
+
+	griglia_attacchi_1 = new Griglia(dimGriglia, g1);
+	griglia_attacchi_2 = new Griglia(dimGriglia, g2);
+	griglia_posizioni_1 = new Griglia(dimGriglia, g1);
+	griglia_posizioni_2 = new Griglia(dimGriglia, g2);
+
+	griglia_posizioni_1->StampaGriglia();
+
+	std::cout << "Impostazioni della partita completate. Griglie inizializzate." << std::endl;
 }

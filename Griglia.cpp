@@ -4,14 +4,17 @@
 
 Griglia::Griglia(std::pair<int, int> _dim, Giocatore* _g)
 {
-	dim = _dim;
-	g = _g;
+    dim = _dim;
+    g = _g;
 
-    for (int i = 0; i < this->dim.first; i++)
+    ListaCaselle.resize(dim.first);
+
+    for (int i = 0; i < dim.first; i++)
     {
-        for (int j = 0; j < this->dim.second; j++)
+        ListaCaselle[i].resize(dim.second);
+        for (int j = 0; j < dim.second; j++)
         {
-			ListaCaselle[i][j] = Casella(i, 'A' + j, StatoCasella::acqua);
+            ListaCaselle[i][j] = new Casella(i, 'A' + j, StatoCasella::acqua);
         }
     }
 }
@@ -103,17 +106,15 @@ std::vector<Casella*> Griglia::ScegliPosizione(int x, char y, std::string direct
     return caselleScelte; // Restituisce la lista delle caselle selezionate
 }
 
-Casella *Griglia::FindCasella(int x, char y)
+Casella* Griglia::FindCasella(int x, char y)
 {
-    for (int i = 0; i < this->dim.first; i++)
+    if (x < 0 || x >= dim.first || y < 'A' || y >= 'A' + dim.second)
     {
-        for (int j = 0; j < this->dim.second; j++)
-        {
-            if (ListaCaselle[i][j].getCoordinataX() == x && ListaCaselle[i][j].getCoordinataY() == y)
-                return &ListaCaselle[i][j];
-        }
+        throw std::out_of_range("Coordinate fuori dai limiti");
     }
-	return nullptr;
+
+    int col = y - 'A';
+    return ListaCaselle[x][col];
 }
 
 void Griglia::AggiornaGriglia()
@@ -122,7 +123,7 @@ void Griglia::AggiornaGriglia()
 	{
 		for (int j = 0; j < this->dim.second; j++)
 		{
-			ListaCaselle[i][j].AggiornaGriglia();
+			ListaCaselle[i][j]->AggiornaGriglia();
 		}
 	}
 }
@@ -140,12 +141,22 @@ Giocatore* Griglia::getGiocatore()
 
 void Griglia::StampaGriglia()
 {
-	for (int i = 0; i < this->dim.first; i++)
-	{
-		for (int j = 0; j < this->dim.second; j++)
-		{
-			std::cout << ListaCaselle[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
+    if (ListaCaselle.empty()) {
+        std::cerr << "Errore: ListaCaselle è vuota!" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < this->dim.first; i++)
+    {
+        if (ListaCaselle[i].empty()) {
+            std::cerr << "Errore: La riga " << i << " è vuota!" << std::endl;
+            continue;
+        }
+
+        for (int j = 0; j < this->dim.second; j++)
+        {
+            std::cout << *ListaCaselle[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 }

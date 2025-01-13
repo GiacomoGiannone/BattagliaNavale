@@ -125,7 +125,7 @@ void BattagliaNavale::AggiornaGriglia()
 	}
 }
 
-void BattagliaNavale::IniziaNuovaPartita(Giocatore* _g1, Giocatore* _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
+void BattagliaNavale::IniziaNuovaPartita(Giocatore* _g1, Giocatore* _g2, Griglia *_griglia_attacchi_1, Griglia *_griglia_attacchi_2, Griglia *_griglia_posizioni_1, Griglia *_griglia_posizioni_2)
 {
 	std::cout << "Inizia nuova partita" << std::endl;
 	Partita* p = new Partita(_g1, _g2, _griglia_attacchi_1, _griglia_attacchi_2, _griglia_posizioni_1, _griglia_posizioni_2);

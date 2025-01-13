@@ -14,9 +14,9 @@ public:
     TurnoAttacco(const std::string& _nickGiocatore) : Turno(_nickGiocatore) {}
     ~TurnoAttacco() {}
 
-    void CreateAttacco(int x, char y, Griglia griglia, bool esito) 
+    void CreateAttacco(int x, char y, Griglia* griglia, bool esito) 
     {
         std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
-		griglia.CreateAttacco(x, y, esito);
+		griglia->CreateAttacco(x, y, esito);
     }
 };

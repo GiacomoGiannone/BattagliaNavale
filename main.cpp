@@ -17,13 +17,10 @@ int main()
 	Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 	Giocatore* secondoGiocatore = nullptr;
 
-	Griglia grigliaAttacchi1;
-	Griglia grigliaAttacchi2;
-	Griglia grigliaPosizioni1;
-	Griglia grigliaPosizioni2;
-
-	std::cout << "Stampo griglia attacchi 1" << std::endl;
-	grigliaAttacchi1.StampaGriglia();
+	Griglia* grigliaAttacchi1 = nullptr;
+	Griglia* grigliaAttacchi2 = nullptr;
+	Griglia* grigliaPosizioni1 = nullptr;
+	Griglia* grigliaPosizioni2 = nullptr;
 
 	gioco.IniziaNuovaPartita(mainPlayer, secondoGiocatore, grigliaAttacchi1, grigliaAttacchi2, grigliaPosizioni1, grigliaPosizioni2);
 
@@ -47,8 +44,15 @@ int main()
 	}
 
 	gioco.ConfermaImpostazioni();
+
+	if (!grigliaPosizioni1 || !grigliaPosizioni2) {
+		std::cerr << "Errore: Le griglie non sono state allocate correttamente!" << std::endl;
+		return -1;
+	}
+	grigliaPosizioni1->StampaGriglia();
 	Partita* partita = gioco.getPartitaCorrente();
 	gioco.IniziaTurnoSchieramento(mainPlayer, partita);
+	gioco.ScegliPosizione(1, 'A', "H");
 
     //gioco.ScegliNave();
     return 0;

@@ -17,10 +17,10 @@ class Griglia
 private:
 	std::pair<int, int> dim;
 	Giocatore *g;
-	std::vector<std::vector<Casella>> ListaCaselle;
+	std::vector<std::vector<Casella*>> ListaCaselle;
 	std::vector<Attacco> ListaAttacchi;
 public:
-	Griglia() {};
+	Griglia() { g = nullptr; };
 	Griglia(std::pair<int, int> _dim, Giocatore* _g);
 	std::vector<Casella*> ScegliPosizione(int x, char y, std::string direction, int dim);
 	Casella* FindCasella(int x, char y);
