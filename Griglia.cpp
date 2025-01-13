@@ -137,3 +137,15 @@ Giocatore* Griglia::getGiocatore()
 {
 	return g;
 }
+
+void Griglia::StampaGriglia()
+{
+	for (int i = 0; i < this->dim.first; i++)
+	{
+		for (int j = 0; j < this->dim.second; j++)
+		{
+			std::cout << ListaCaselle[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+}

@@ -19,6 +19,8 @@ public:
 	StatoCasella getStato() { return stato; }
 	const int getCoordinataX() { return coordinata_x; }
 	const char getCoordinataY() { return coordinata_y; }
+	
+	friend std::ostream& operator<<(std::ostream& os, const Casella& casella);
 };
 
 #endif

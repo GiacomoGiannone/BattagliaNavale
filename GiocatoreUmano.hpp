@@ -3,9 +3,9 @@
 
 class GiocatoreUmano : public Giocatore
 {
-private:
-	std::string nickname;
 public:
-	GiocatoreUmano(std::string _nickname) : nickname(_nickname) {};
+	GiocatoreUmano(std::string _nickname) : Giocatore(_nickname) {};
 	~GiocatoreUmano() {};
+
+	std::string getNickname() const { return nickname; }
 };

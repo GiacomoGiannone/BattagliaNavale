@@ -29,6 +29,7 @@ public:
 	/*std:vector<Attacco> getListaAttacchi() { return ListaAttacchi; }
 	std::pair<int, int> getDim() { return dim; }*/
 	void CreateAttacco(int x, char y, bool esito);
+	void StampaGriglia();
 };
 
 #endif

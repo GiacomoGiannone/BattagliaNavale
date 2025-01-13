@@ -11,19 +11,21 @@
 class Giocatore 
 {
 private:
-	std::string nickname;
 	std::vector<Turno*> ListaTurni;
+protected:
+	std::string nickname;
 public:
 	Giocatore() {};
 	Giocatore(std::string _nickname) : nickname(_nickname) {};
 	Giocatore(const Giocatore& other) : nickname(other.nickname), ListaTurni(other.ListaTurni) {}
+	virtual ~Giocatore() {}
 
 	bool operator<(const Giocatore& other) const
 	{
 		return nickname < other.nickname; 
 	}
 
-	std::string getNickname() const { return nickname; }
+	virtual std::string getNickname() const { return nickname; }
 };
 
 #endif

@@ -6,10 +6,10 @@
 
 Giocatore* Partita::getInstanceByNick(std::string nick)
 {
-	return ( g1->getNickname() == nick) ? g1 : g2;
+	return (g1->getNickname() == nick) ? g1 : g2;
 }
 
-Partita::Partita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
+Partita::Partita(Giocatore* _g1, Giocatore* _g2, Griglia _griglia_attacchi_1, Griglia _griglia_attacchi_2, Griglia _griglia_posizioni_1, Griglia _griglia_posizioni_2)
 {
 	stato = attiva;
 
@@ -17,12 +17,20 @@ Partita::Partita(Giocatore _g1, Giocatore _g2, Griglia _griglia_attacchi_1, Grig
 	griglia_attacchi_2 = _griglia_attacchi_2;
 	griglia_posizioni_1 = _griglia_posizioni_1;
 	griglia_posizioni_2 = _griglia_posizioni_2;
+
+	g1 = _g1;
+	g2 = _g2;
 }
 
-bool Partita::creaTurno(Giocatore g)
+bool Partita::creaTurno(Giocatore* g)
 {
-	std::cout << "Creo turno di schieramento del giocatore "<< g.getNickname() << std::endl;
-	std::string nickGiocatore = g.getNickname();
+	if(!g)
+	{
+		std::cerr << "Errore: giocatore non inizializzato" << std::endl;
+		return false;
+	}
+	std::string nickGiocatore = g->getNickname();
+	std::cout << "Creo turno di schieramento del giocatore "<< nickGiocatore << std::endl;
 	t = new TurnoSchieramento(nickGiocatore);
 	//alla fine del turno di schieramento di g, fai delete t in modo da poter creare un nuovo turno per g2
 	return true;

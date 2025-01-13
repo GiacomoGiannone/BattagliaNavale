@@ -3,9 +3,9 @@
 
 class Bot: public Giocatore
 {
-private:
-	std::string nickname;
 public:
-	Bot(std::string _nickname) : nickname(_nickname) {};
+	Bot(std::string _nickname) : Giocatore(_nickname) {};
 	~Bot() {};
+
+	std::string getNickname() const { return nickname; }
 };
