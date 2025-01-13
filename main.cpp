@@ -15,14 +15,14 @@ int main()
 	std::cout << "Benvenuto " << MainPlayerNickname << "!" << std::endl;
     
 	Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
-	Giocatore* secondoGiocatore = nullptr;
+	/*Giocatore* secondoGiocatore = nullptr;
 
 	Griglia* grigliaAttacchi1 = nullptr;
 	Griglia* grigliaAttacchi2 = nullptr;
 	Griglia* grigliaPosizioni1 = nullptr;
-	Griglia* grigliaPosizioni2 = nullptr;
+	Griglia* grigliaPosizioni2 = nullptr;*/
 
-	gioco.IniziaNuovaPartita(mainPlayer, secondoGiocatore, grigliaAttacchi1, grigliaAttacchi2, grigliaPosizioni1, grigliaPosizioni2);
+	gioco.IniziaNuovaPartita(mainPlayer /*secondoGiocatore, grigliaAttacchi1, grigliaAttacchi2, grigliaPosizioni1, grigliaPosizioni2*/);
 
 	std::cout << "Inserisci il nickname del tuo avversario: ";
 	std::string SecondPlayerNickname;
@@ -45,14 +45,27 @@ int main()
 
 	gioco.ConfermaImpostazioni();
 
-	if (!grigliaPosizioni1 || !grigliaPosizioni2) {
-		std::cerr << "Errore: Le griglie non sono state allocate correttamente!" << std::endl;
+	/*if (!secondoGiocatore)
+	{
+		std::cerr << "Errore: secondo giocatore non inizializzato" << std::endl;
 		return -1;
 	}
-	grigliaPosizioni1->StampaGriglia();
+
+	if (!grigliaPosizioni1 || !grigliaPosizioni2)
+	{
+		std::cerr << "Errore: Le griglie non sono state allocate correttamente!" << std::endl;
+		return -1;
+	}*/
+	//grigliaPosizioni1->StampaGriglia();
 	Partita* partita = gioco.getPartitaCorrente();
 	gioco.IniziaTurnoSchieramento(mainPlayer, partita);
-	gioco.ScegliPosizione(1, 'A', "H");
+	gioco.setNaveSelezionata(new Incrociatore);
+	if (gioco.ScegliPosizione(1, 'A', "H"))
+	{
+		std::cout << "Nave piazzata correttamente!" << std::endl;
+	}
+
+	partita->StampaGriglieG1();
 
     //gioco.ScegliNave();
     return 0;

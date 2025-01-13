@@ -68,8 +68,9 @@ bool BattagliaNavale::ScegliNave()
 
 bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 {
-	std::cout << "Scegli posizione" << std::endl;
+	std::cout << "Metodo scegli posizione BattagliaNavale" << std::endl;
 	int dim = naveSelezionata->getDimensione();
+	std::cout << "La nave selezionata e' " << naveSelezionata->getNome() << " di dimensione " << dim << std::endl;
 	for (auto& p : ListaPartite)
 	{
 		if (p->getStato() == Partita::attiva)
@@ -83,6 +84,7 @@ bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 
 			NaveSchierata* nave = new NaveSchierata(naveSelezionata, caselle);
 			p->addNave(nave);
+			return true;
 		}
 	}
 	return false;
@@ -125,10 +127,10 @@ void BattagliaNavale::AggiornaGriglia()
 	}
 }
 
-void BattagliaNavale::IniziaNuovaPartita(Giocatore* _g1, Giocatore* _g2, Griglia *_griglia_attacchi_1, Griglia *_griglia_attacchi_2, Griglia *_griglia_posizioni_1, Griglia *_griglia_posizioni_2)
+void BattagliaNavale::IniziaNuovaPartita(Giocatore* _g1/* Giocatore* _g2, Griglia* _griglia_attacchi_1, Griglia* _griglia_attacchi_2, Griglia* _griglia_posizioni_1, Griglia* _griglia_posizioni_2*/)
 {
 	std::cout << "Inizia nuova partita" << std::endl;
-	Partita* p = new Partita(_g1, _g2, _griglia_attacchi_1, _griglia_attacchi_2, _griglia_posizioni_1, _griglia_posizioni_2);
+	Partita* p = new Partita(_g1/*, _g2, _griglia_attacchi_1, _griglia_attacchi_2, _griglia_posizioni_1, _griglia_posizioni_2*/);
 	ListaPartite.push_back(p);
 }
 
@@ -157,4 +159,9 @@ Partita* BattagliaNavale::getPartitaCorrente()
 		}
 	}
 	return nullptr;
+}
+
+void BattagliaNavale::setNaveSelezionata(Nave* nave)
+{
+	naveSelezionata = nave;
 }

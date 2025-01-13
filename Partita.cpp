@@ -9,17 +9,17 @@ Giocatore* Partita::getInstanceByNick(std::string nick)
 	return (g1->getNickname() == nick) ? g1 : g2;
 }
 
-Partita::Partita(Giocatore* _g1, Giocatore* _g2, Griglia *_griglia_attacchi_1, Griglia *_griglia_attacchi_2, Griglia *_griglia_posizioni_1, Griglia* _griglia_posizioni_2)
+Partita::Partita(Giocatore* _g1/* Giocatore* _g2, Griglia* _griglia_attacchi_1, Griglia* _griglia_attacchi_2, Griglia* _griglia_posizioni_1, Griglia* _griglia_posizioni_2*/)
 {
 	stato = attiva;
 
-	griglia_attacchi_1 = _griglia_attacchi_1;
+	/*griglia_attacchi_1 = _griglia_attacchi_1;
 	griglia_attacchi_2 = _griglia_attacchi_2;
 	griglia_posizioni_1 = _griglia_posizioni_1;
-	griglia_posizioni_2 = _griglia_posizioni_2;
+	griglia_posizioni_2 = _griglia_posizioni_2;*/
 
 	g1 = _g1;
-	g2 = _g2;
+	//g2 = _g2;
 }
 
 bool Partita::creaTurno(Giocatore* g)
@@ -38,6 +38,7 @@ bool Partita::creaTurno(Giocatore* g)
 
 std::vector<Casella*> Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 {
+	std::cout << "Metodo scegli posizione di Partita" << std::endl;
 	std::string nickGiocatore = t->getNickGiocatore();
 	Giocatore *giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
@@ -175,4 +176,14 @@ void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGrigl
 	griglia_posizioni_1->StampaGriglia();
 
 	std::cout << "Impostazioni della partita completate. Griglie inizializzate." << std::endl;
+}
+
+void Partita::StampaGriglieG1()
+{
+	griglia_posizioni_1->StampaGriglia();
+}
+
+void Partita::StampaGriglieG2()
+{
+	griglia_posizioni_2->StampaGriglia();
 }

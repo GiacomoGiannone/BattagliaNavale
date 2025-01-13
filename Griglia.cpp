@@ -21,6 +21,7 @@ Griglia::Griglia(std::pair<int, int> _dim, Giocatore* _g)
 
 std::vector<Casella*> Griglia::ScegliPosizione(int x, char y, std::string direction, int dimNave)
 {
+	std::cout << "Metodo ScegliPosizione Griglia" << std::endl;
     std::vector<Casella*> caselleScelte;
 
     for (int i = 0; i < dimNave; i++)
