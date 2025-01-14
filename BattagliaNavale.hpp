@@ -26,7 +26,7 @@ public:
 	BattagliaNavale();
 	~BattagliaNavale();
 	void IniziaTurnoSchieramento(Giocatore* g, Partita* p);
-	bool ScegliNave();
+	bool ScegliNave(int id);
 	bool ScegliPosizione(int x, char y, std::string direction);
 	//bool ScegliPosizione(int x, char y, std::string direction, int dim);
 	bool ConfermaPiazzamentoNavi();

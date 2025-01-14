@@ -42,11 +42,13 @@ public:
 	void ToggleState();
 	void addNave(NaveSchierata* nave);
 	void ResetTurnoSchieramento();
-	void StampaGriglieG1();
-	void StampaGriglieG2();
+	void StampaGriglia(Giocatore* g);
 	void StampaNavi();
 	int GetNumeroNavi();
 	Giocatore* getGiocatore2();
+	bool isG2_Umano();
+	Turno* get_TurnoCorrente();
+	std::pair<int, int> getDimGriglia();
 };
 
 #endif

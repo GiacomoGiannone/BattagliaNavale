@@ -5,7 +5,7 @@
 class Impostazioni
 {
 private:
-	int num_giocatori;
+	bool giocatoreUmano;
 	std::pair<int, int> dim_griglia;
 	int num_navi;
 public:
@@ -13,12 +13,14 @@ public:
 	{
 		// Inizializzazione di default
 	}*/
-	Impostazioni(int _num_giocatori, std::pair<int, int> _dim_griglia, int _num_navi) 
+	Impostazioni(bool _giocatoreUmano, std::pair<int, int> _dim_griglia, int _num_navi) 
 	{
-		num_giocatori = _num_giocatori;
+		giocatoreUmano = _giocatoreUmano;
 		dim_griglia = _dim_griglia;
 		num_navi = _num_navi;
 	};
 
-	int getNumNavi() { return num_navi; };
+	int getNumNavi() { return num_navi; }
+	bool getGiocatoreUmano() { return giocatoreUmano; }
+	std::pair<int, int> getDimGriglia() { return dim_griglia; }
 };

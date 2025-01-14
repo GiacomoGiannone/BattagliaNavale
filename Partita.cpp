@@ -64,7 +64,7 @@ void Partita::addNave(NaveSchierata* nave)
 
 void Partita::ResetTurnoSchieramento()
 {
-	std::cout << "Resetto il turno di schieramento" << std::endl;
+	std::cout << "Resetto il turno di schieramento di" << t->getNickGiocatore() << std::endl;
 	ListaTurni.push_back(t);
 	delete t;
 }
@@ -178,14 +178,16 @@ void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGrigl
 	std::cout << "Impostazioni della partita completate. Griglie inizializzate." << std::endl;
 }
 
-void Partita::StampaGriglieG1()
+void Partita::StampaGriglia(Giocatore* g)
 {
-	griglia_posizioni_1->StampaGriglia();
-}
-
-void Partita::StampaGriglieG2()
-{
-	griglia_posizioni_2->StampaGriglia();
+	if (g->getNickname() == g1->getNickname())
+	{
+		griglia_posizioni_1->StampaGriglia();
+	}
+	else
+	{
+		griglia_posizioni_2->StampaGriglia();
+	}
 }
 
 void Partita::StampaNavi()
@@ -204,4 +206,19 @@ int Partita::GetNumeroNavi()
 Giocatore* Partita::getGiocatore2()
 {
 	return g2;
+}
+
+bool Partita::isG2_Umano()
+{
+	return i->getGiocatoreUmano();
+}
+
+Turno* Partita::get_TurnoCorrente()
+{
+	return t;
+}
+
+std::pair<int, int> Partita::getDimGriglia()
+{
+	return i->getDimGriglia();
 }

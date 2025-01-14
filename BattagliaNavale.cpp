@@ -26,11 +26,9 @@ void BattagliaNavale::IniziaTurnoSchieramento(Giocatore* g, Partita* p)
 	p->creaTurno(g);
 }
 
-bool BattagliaNavale::ScegliNave()
+bool BattagliaNavale::ScegliNave(int id)
 {
-	/*Partita* partita = getPartitaCorrente();
-	int MaxNumNavi = partita->GetNumeroNavi();
-	int currentNumNavi = MaxNumNavi;*/
+	Partita* partita = getPartitaCorrente();
 	bool naveScelta = false;
 
 	//Si puo' piazzare una nave di ogni tipo tranne per il sottomarino, che può essere piazzato tante volte quante navi rimangono (maxNavi-3)
@@ -38,16 +36,14 @@ bool BattagliaNavale::ScegliNave()
 	while (!naveScelta)
 	{
 		//currentNumNavi-- dopo ogni piazzamento a buon fine e setta naviPiazzate a true quando currentNumNavi == 0
-		std::cout << "Scegli quale nave piazzare:" << std::endl;
+		/*std::cout << "Scegli quale nave piazzare:" << std::endl;
 		int count = 1;
 		for (const auto& n : ListaNavi)
 		{
 			std::cout << n->getNome() << " (" << count << ")" << std::endl;
 			count++;
-		}
+		}*/
 
-		int id = 1;
-		std::cin >> id;
 		if (id < 1 || id > 4)
 		{
 			std::cout << "Nave non valida" << std::endl;
