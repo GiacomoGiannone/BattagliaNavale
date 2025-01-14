@@ -173,7 +173,7 @@ void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGrigl
 	griglia_posizioni_1 = new Griglia(dimGriglia, g1);
 	griglia_posizioni_2 = new Griglia(dimGriglia, g2);
 
-	griglia_posizioni_1->StampaGriglia();
+	//griglia_posizioni_1->StampaGriglia();
 
 	std::cout << "Impostazioni della partita completate. Griglie inizializzate." << std::endl;
 }
@@ -194,4 +194,14 @@ void Partita::StampaNavi()
 	{
 		naveSchierata->PrintInfo();
 	}
+}
+
+int Partita::GetNumeroNavi()
+{
+	return i->getNumNavi();
+}
+
+Giocatore* Partita::getGiocatore2()
+{
+	return g2;
 }

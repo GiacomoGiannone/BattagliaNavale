@@ -45,6 +45,8 @@ public:
 	void StampaGriglieG1();
 	void StampaGriglieG2();
 	void StampaNavi();
+	int GetNumeroNavi();
+	Giocatore* getGiocatore2();
 };
 
 #endif

@@ -18,6 +18,7 @@ public:
 	//void SetNave(NaveSchierata ns);
 	void AggiornaGriglia() {};
 	StatoCasella getStato() { return stato; }
+	void setStato(StatoCasella nuovoStato) { stato = nuovoStato; }
 	const int getCoordinataX() { return coordinata_x; }
 	const char getCoordinataY() { return coordinata_y; }
 	

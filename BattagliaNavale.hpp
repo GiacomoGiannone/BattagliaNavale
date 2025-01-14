@@ -11,6 +11,7 @@
 #include "Corazzata.hpp"
 #include "Portaerei.hpp"
 #include "Sottomarino.hpp"
+#include <unordered_map>
 
 
 class BattagliaNavale
@@ -36,4 +37,6 @@ public:
 	void ConfermaImpostazioni();
 	Partita* getPartitaCorrente();
 	void setNaveSelezionata(Nave* nave);
+	std::unordered_map<std::string, int> CreaMappaNavi();
+	Nave* getNave();
 };

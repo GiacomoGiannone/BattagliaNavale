@@ -19,4 +19,6 @@ public:
 		dim_griglia = _dim_griglia;
 		num_navi = _num_navi;
 	};
+
+	int getNumNavi() { return num_navi; };
 };

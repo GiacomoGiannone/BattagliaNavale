@@ -40,14 +40,83 @@ int main()
 	gioco.ConfermaImpostazioni();
 
 	Partita* partita = gioco.getPartitaCorrente();
+	Giocatore* giocatore2 = partita->getGiocatore2();
+	//controlla se il secondo giocatore è un bot o umano così da sapere come giocare il turno
 	gioco.IniziaTurnoSchieramento(mainPlayer, partita);
-	gioco.ScegliNave();
-	if (gioco.ScegliPosizione(1, 'A', "H"))
-	{
-		std::cout << "Nave piazzata correttamente!" << std::endl;
-	}
+	int maxNumNavi = partita->GetNumeroNavi();
+	int currNumNavi = maxNumNavi;
 
-	partita->StampaGriglieG1();
+	std::unordered_map<std::string, int> mappaNavi = gioco.CreaMappaNavi();
+
+    while (currNumNavi > 0)
+    {
+        std::cout << "--------------------------------------------------------------" << std::endl;
+
+        // Stampa la griglia del giocatore 1
+        partita->StampaGriglieG1();
+
+        // Itera attraverso la mappa e stampa il nome della nave e il numero disponibile
+        std::cout << "Navi disponibili:" << std::endl;
+        for (const auto& pair : mappaNavi)
+        {
+            const std::string& nome = pair.first;  // Accesso alla chiave
+            int numero = pair.second;             // Accesso al valore
+            std::cout << nome << ": " << numero << " disponibili" << std::endl;
+        }
+
+        // Chiedi all'utente di selezionare una nave
+        if (!gioco.ScegliNave())
+        {
+            std::cout << "Errore nella selezione della nave. Riprova!" << std::endl;
+            continue;
+        }
+
+        // Chiedi all'utente la posizione e la direzione per piazzare la nave
+        int posizioneX;
+        char posizioneY;
+        std::string direction;
+
+        std::cout << "Scegli la posizione X: ";
+        std::cin >> posizioneX;
+
+        std::cout << "Scegli la posizione Y: ";
+        std::cin >> posizioneY;
+
+        std::cout << "Scegli la direzione (H/V): ";
+        std::cin >> direction;
+
+        // Prova a piazzare la nave
+        if (gioco.ScegliPosizione(posizioneX, posizioneY, direction))
+        {
+            // Recupera la nave selezionata e aggiorna il conteggio nella mappa
+            Nave* naveSelezionata = gioco.getNave();
+            if (naveSelezionata)
+            {
+                std::string nomeNave = naveSelezionata->getNome();
+                if (mappaNavi[nomeNave] > 0)
+                {
+                    mappaNavi[nomeNave]--; // Decrementa il numero di navi disponibili di quel tipo
+                    currNumNavi--;         // Decrementa il numero totale di navi da piazzare
+                    std::cout << "Nave " << nomeNave << " piazzata correttamente!" << std::endl;
+                }
+                else
+                {
+                    std::cout << "Errore: nessuna nave di tipo " << nomeNave << " disponibile per il piazzamento!" << std::endl;
+                }
+            }
+            else
+            {
+                std::cout << "Errore: nessuna nave selezionata!" << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Errore: posizione non valida. Riprova!" << std::endl;
+        }
+    }
+
+
+	//partita->StampaGriglieG1();
 
     //gioco.ScegliNave();
     return 0;
