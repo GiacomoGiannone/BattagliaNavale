@@ -119,7 +119,6 @@ void Partita::FindCasella(int x, char y)
 	ListaTurni.push_back(std::make_shared<TurnoAttacco>(turnoAttacco));
 }
 
-
 bool Partita::GeneraEsito(StatoCasella stato)
 {
 	if (stato == StatoCasella::acqua)

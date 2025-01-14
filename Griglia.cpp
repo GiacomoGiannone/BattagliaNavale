@@ -109,8 +109,6 @@ std::vector<Casella*> Griglia::ScegliPosizione(int x, char y, std::string direct
 
 Casella* Griglia::FindCasella(int x, char y)
 {
-    std::cout << "Verifica coordinate: (" << x << ", " << y << ")" << std::endl;
-
     // Controlla che X e Y siano validi
     if (x < 0 || x >= dim.first)
     {

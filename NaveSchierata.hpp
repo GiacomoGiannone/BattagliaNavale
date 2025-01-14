@@ -17,7 +17,8 @@ public:
 	{
 		std::cout << "Nave: " << n->getNome() << " (" << n->getDimensione() << ")" << std::endl;
 		std::cout << "Caselle: ";
-		for (auto c : caselle) {
+		for (auto c : caselle) 
+		{
 			std::cout << *c << " ";
 		}
 		std::cout << std::endl;

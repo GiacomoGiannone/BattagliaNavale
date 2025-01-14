@@ -137,37 +137,25 @@ int main()
                 std::cin >> direction;
             }
 
-            // Prova a piazzare la nave
-            if (gioco.ScegliPosizione(posizioneX, std::toupper(posizioneY), direction))
+            Nave* naveSelezionata = gioco.getNave();
+            if (naveSelezionata)
             {
-                // Recupera la nave selezionata e aggiorna il conteggio nella mappa
-                Nave* naveSelezionata = gioco.getNave();
-                if (naveSelezionata)
+                std::string nomeNave = naveSelezionata->getNome();
+                if (mappaNavi[nomeNave] > 0 && gioco.ScegliPosizione(posizioneX, std::toupper(posizioneY), direction))
                 {
-                    std::string nomeNave = naveSelezionata->getNome();
-                    if (mappaNavi[nomeNave] > 0)
-                    {
-                        mappaNavi[nomeNave]--;
-                        currNumNavi--;      
-                        std::cout << "Nave " << nomeNave << " piazzata correttamente!" << std::endl;
-                    }
-                    else
-                    {
-                        std::cout << "Errore: nessuna nave di tipo " << nomeNave << " disponibile per il piazzamento!" << std::endl;
-                    }
+                    mappaNavi[nomeNave]--;
+                    currNumNavi--;      
+                    std::cout << "Nave " << nomeNave << " piazzata correttamente!" << std::endl;
                 }
                 else
                 {
-                    std::cout << "Errore: nessuna nave selezionata!" << std::endl;
+                    std::cout << "Errore: nessuna nave di tipo " << nomeNave << " disponibile per il piazzamento oppure posizione sbagliata!" << std::endl;
                 }
             }
             else
             {
-                std::cout << "Errore: posizione non valida. Riprova!" << std::endl;
+                std::cout << "Errore: nessuna nave selezionata!" << std::endl;
             }
-
-            //std::this_thread::sleep_for(std::chrono::seconds(2));
-            ClearConsole();
         }
         partita->ResetTurnoSchieramento();
         currNumNavi = maxNumNavi;
@@ -202,6 +190,5 @@ int main()
             gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
         }
     }
-
     return 0;
 }
