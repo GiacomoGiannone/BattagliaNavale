@@ -109,15 +109,27 @@ std::vector<Casella*> Griglia::ScegliPosizione(int x, char y, std::string direct
 
 Casella* Griglia::FindCasella(int x, char y)
 {
-    if (x < 0 || x >= dim.first || y < 'A' || y >= 'A' + dim.second)
+    std::cout << "Verifica coordinate: (" << x << ", " << y << ")" << std::endl;
+
+    // Controlla che X e Y siano validi
+    if (x < 0 || x >= dim.first)
     {
-        throw std::out_of_range("Coordinate fuori dai limiti");
+        throw std::out_of_range("Coordinate X fuori dai limiti");
+    }
+    if (y < 'A' || y >= 'A' + dim.second)
+    {
+        throw std::out_of_range("Coordinate Y fuori dai limiti");
     }
 
     int col = y - 'A';
+
+    if (!ListaCaselle[x][col])
+    {
+        throw std::runtime_error("Casella non valida o non inizializzata");
+    }
+
     return ListaCaselle[x][col];
 }
-
 void Griglia::AggiornaGriglia()
 {
 	for (int i = 0; i < this->dim.first; i++)
@@ -160,4 +172,19 @@ void Griglia::StampaGriglia()
         }
         std::cout << std::endl;
     }
+}
+
+bool Griglia::isOver()
+{
+    for (int i = 0; i < ListaCaselle.size(); i++)
+    {
+        for (int j = 0; j < ListaCaselle.size(); j++)
+        {
+            if (ListaCaselle[i][j]->getStato() == StatoCasella::occupata)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }

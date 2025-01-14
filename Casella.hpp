@@ -4,6 +4,7 @@
 #define CASELLA_HPP
 
 #include <iostream>
+#include <Windows.h>
 #include "StatoCasella.hpp"
 
 class Casella
@@ -12,6 +13,8 @@ private:
 	int coordinata_x;
 	char coordinata_y;
 	StatoCasella stato;
+
+	void SetColor(int color);
 public:
 	Casella() : coordinata_x(0), coordinata_y('A'), stato(StatoCasella::acqua) {}
 	Casella(int _coordinata_x, char _coordinata_y, StatoCasella _stato):coordinata_x(_coordinata_x), coordinata_y(_coordinata_y), stato(_stato){}

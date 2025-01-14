@@ -18,7 +18,7 @@ public :
 private:
 	Giocatore *g1,*g2;
 	Impostazioni *i;
-	std::vector<Turno*> ListaTurni;
+	std::vector<std::shared_ptr<Turno>> ListaTurni;
 	Turno* t;
 	//std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
 	Griglia *griglia_attacchi_1, *griglia_attacchi_2;
@@ -49,6 +49,8 @@ public:
 	bool isG2_Umano();
 	Turno* get_TurnoCorrente();
 	std::pair<int, int> getDimGriglia();
+	bool isOver();
+	Turno* getLastValidTurno();
 };
 
 #endif

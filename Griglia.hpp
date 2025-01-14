@@ -30,6 +30,7 @@ public:
 	std::pair<int, int> getDim() { return dim; }*/
 	void CreateAttacco(int x, char y, bool esito);
 	void StampaGriglia();
+	bool isOver();
 };
 
 #endif

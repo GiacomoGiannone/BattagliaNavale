@@ -9,17 +9,10 @@ Giocatore* Partita::getInstanceByNick(std::string nick)
 	return (g1->getNickname() == nick) ? g1 : g2;
 }
 
-Partita::Partita(Giocatore* _g1/* Giocatore* _g2, Griglia* _griglia_attacchi_1, Griglia* _griglia_attacchi_2, Griglia* _griglia_posizioni_1, Griglia* _griglia_posizioni_2*/)
+Partita::Partita(Giocatore* _g1)
 {
 	stato = attiva;
-
-	/*griglia_attacchi_1 = _griglia_attacchi_1;
-	griglia_attacchi_2 = _griglia_attacchi_2;
-	griglia_posizioni_1 = _griglia_posizioni_1;
-	griglia_posizioni_2 = _griglia_posizioni_2;*/
-
 	g1 = _g1;
-	//g2 = _g2;
 }
 
 bool Partita::creaTurno(Giocatore* g)
@@ -64,57 +57,68 @@ void Partita::addNave(NaveSchierata* nave)
 
 void Partita::ResetTurnoSchieramento()
 {
-	std::cout << "Resetto il turno di schieramento di" << t->getNickGiocatore() << std::endl;
-	ListaTurni.push_back(t);
-	delete t;
+	if (t) // Assicurati che t non sia nullptr
+	{
+		std::cout << "Resetto il turno di schieramento di " << t->getNickGiocatore() << std::endl;
+
+		// Aggiungi il turno a ListaTurni come std::shared_ptr
+		ListaTurni.push_back(std::shared_ptr<Turno>(t));
+
+		// Imposta t a nullptr per evitare dangling pointer
+		t = nullptr;
+	}
+	else
+	{
+		std::cout << "Errore: il turno corrente è già nullo!" << std::endl;
+	}
 }
 
 void Partita::FindCasella(int x, char y)
 {
-	//accedi all'ultimo turno per capire chi è il giocatore corrente
 	std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
-	Giocatore* gTemp; //gTemp è il giocatore che deve attaccare
-	if (g1->getNickname() == lastPlayer)
+	Giocatore* gTemp = (g1->getNickname() == lastPlayer) ? g2 : g1;
+
+	TurnoAttacco turnoAttacco(gTemp->getNickname());
+	std::cout << "Turno di attacco del giocatore " << turnoAttacco.getNickGiocatore() << std::endl;
+
+	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname())? griglia_posizioni_1: griglia_posizioni_2;
+
+	if (!grigliaCorrente)
 	{
-		gTemp = new Giocatore(*g2);
+		std::cerr << "La griglia corrente non è valida" << std::endl;
+		return;
 	}
-	else
-	{
-		gTemp = new Giocatore(*g1);
-	}
-	t = new TurnoAttacco(gTemp->getNickname());
-	//accedi alla griglia di attacco del giocatore corrente
-	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
-	//cerca la casella x,y
+
 	Casella* casella = grigliaCorrente->FindCasella(x, y);
 
-	if (casella)
-	{
-		// Ottieni lo stato della casella
-		StatoCasella stato = casella->getStato();
-
-		//std::cout << "Lo stato della casella (" << x << ", " << y << ") è: " << stato << std::endl;
-
-		if (stato == StatoCasella::acqua)
-		{
-			std::cout << "Casella acqua!" << std::endl;
-		}
-		else if (stato == StatoCasella::occupata)
-		{
-			std::cout << "Casella occupata!" << std::endl;
-		}
-	}
-	else
+	if (!casella)
 	{
 		std::cout << "Casella non trovata!" << std::endl;
+		return;
+	}
+
+	StatoCasella stato = casella->getStato();
+
+	if (stato == StatoCasella::acqua)
+	{
+		std::cout << "Casella acqua!" << std::endl;
+	}
+	else if (stato == StatoCasella::occupata)
+	{
+		std::cout << "Colpito!" << std::endl;
+		casella->setStato(StatoCasella::colpita);
+	}
+	else if (stato == StatoCasella::colpita)
+	{
+		std::cout << "Hai già colpito questa casella!" << std::endl;
 	}
 
 	bool esito = GeneraEsito(casella->getStato());
-	t->CreateAttacco(x, y, grigliaCorrente, esito);
-	//conferma il turno di attacco e cancella il turno corrente
-	ListaTurni.push_back(t);
-	delete t;
+	turnoAttacco.CreateAttacco(x, y, grigliaCorrente, esito);
+
+	ListaTurni.push_back(std::make_shared<TurnoAttacco>(turnoAttacco));
 }
+
 
 bool Partita::GeneraEsito(StatoCasella stato)
 {
@@ -221,4 +225,18 @@ Turno* Partita::get_TurnoCorrente()
 std::pair<int, int> Partita::getDimGriglia()
 {
 	return i->getDimGriglia();
+}
+
+bool Partita::isOver()
+{
+	return griglia_posizioni_1->isOver() || griglia_posizioni_2->isOver();
+}
+
+Turno* Partita::getLastValidTurno()
+{
+	if (!ListaTurni.empty())
+	{
+		return ListaTurni.back().get(); // Converte std::shared_ptr<Turno> in Turno*
+	}
+	return nullptr; // Se ListaTurni è vuoto
 }

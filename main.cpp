@@ -1,9 +1,21 @@
 #include <iostream>
 #include <time.h>
 
+#include <cstdlib> 
+#include <thread>
+#include <chrono>
+
 #include "BattagliaNavale.hpp"
 #include "GiocatoreUmano.hpp"
 
+void ClearConsole()
+{
+#ifdef _WIN32
+    system("cls"); //Windows
+#else
+    system("clear"); //Unix/Linux/macOS
+#endif
+}
 
 int main()
 {
@@ -19,6 +31,9 @@ int main()
     Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 
     gioco.IniziaNuovaPartita(mainPlayer);
+
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    ClearConsole();
 
     std::cout << "Inserisci il nickname del tuo avversario: ";
     std::string SecondPlayerNickname;
@@ -43,14 +58,16 @@ int main()
 
     Partita* partita = gioco.getPartitaCorrente();
     Giocatore* giocatore2 = partita->getGiocatore2();
-    //controlla se il secondo giocatore è un bot o umano così da sapere come giocare il turno
-    //gioco.IniziaTurnoSchieramento(mainPlayer, partita);
+
     int maxNumNavi = partita->GetNumeroNavi();
     int currNumNavi = maxNumNavi;
 
     std::vector<Giocatore*> giocatori = { giocatore2, mainPlayer };
-    //std::unordered_map<std::string, int> mappaNavi = gioco.CreaMappaNavi();
+    
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    ClearConsole();
 
+    ////////////////////////////////// PARTE RELATIVA AL PIAZZAMENTO DELLE NAVI //////////////////////////////////
     for(auto&giocatore : giocatori)
     {
         std::unordered_map<std::string, int> mappaNavi = gioco.CreaMappaNavi();
@@ -130,8 +147,8 @@ int main()
                     std::string nomeNave = naveSelezionata->getNome();
                     if (mappaNavi[nomeNave] > 0)
                     {
-                        mappaNavi[nomeNave]--; // Decrementa il numero di navi disponibili di quel tipo
-                        currNumNavi--;         // Decrementa il numero totale di navi da piazzare
+                        mappaNavi[nomeNave]--;
+                        currNumNavi--;      
                         std::cout << "Nave " << nomeNave << " piazzata correttamente!" << std::endl;
                     }
                     else
@@ -148,14 +165,43 @@ int main()
             {
                 std::cout << "Errore: posizione non valida. Riprova!" << std::endl;
             }
+
+            //std::this_thread::sleep_for(std::chrono::seconds(2));
+            ClearConsole();
         }
         partita->ResetTurnoSchieramento();
         currNumNavi = maxNumNavi;
     }
 
     std::cout << "I giocatori hanno piazzato tutte le navi" << std::endl;
-    //partita->StampaGriglieG1();
+    ////////////////////////////////// FINE DELLA PARTE RELATIVA AL PIAZZAMENTO DELLE NAVI //////////////////////////////////
 
-    //gioco.ScegliNave();
+    ////////////////////////////////// PARTE RELATIVA ALL'ATTACCO //////////////////////////////////
+    std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||" << std::endl;
+    std::cout << "Inizia la fase di attacco!" << std::endl;
+    
+    while (partita->isOver() == false)
+    {
+        int posizioneX;
+        char posizioneY;
+        //controlla se il turno e' del bot
+        if (partita->getLastValidTurno()->getNickGiocatore() == giocatore2->getNickname() && partita->isG2_Umano() == false)
+        {
+            std::cout << "L'ultimo turno e' stato del giocatore umano, adesso tocca al bot" << std::endl;
+            posizioneX = rand() % partita->getDimGriglia().first;
+            posizioneY = 'A' + (rand() % partita->getDimGriglia().second);
+            gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
+        }
+        else
+        {
+            std::cout << "Scegli posizione di attacco X: ";
+            std::cin >> posizioneX;
+
+            std::cout << "Scegli posizione di attacco Y: ";
+            std::cin >> posizioneY;
+            gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
+        }
+    }
+
     return 0;
 }
