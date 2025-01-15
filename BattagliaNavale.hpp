@@ -39,4 +39,5 @@ public:
 	void setNaveSelezionata(Nave* nave);
 	std::unordered_map<std::string, int> CreaMappaNavi();
 	Nave* getNave();
+	void GestisciFinePartita();
 };

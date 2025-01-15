@@ -128,6 +128,7 @@ Casella* Griglia::FindCasella(int x, char y)
 
     return ListaCaselle[x][col];
 }
+
 void Griglia::AggiornaGriglia()
 {
 	for (int i = 0; i < this->dim.first; i++)

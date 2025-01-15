@@ -239,3 +239,18 @@ Turno* Partita::getLastValidTurno()
 	}
 	return nullptr; // Se ListaTurni è vuoto
 }
+
+void Partita::setStato(Stato nuovoStato)
+{
+	this->stato = nuovoStato;
+}
+
+Giocatore* Partita::getWinner()
+{
+	if (griglia_posizioni_1->isOver())
+	{
+		return g2;
+	}
+	
+	return g1;
+}

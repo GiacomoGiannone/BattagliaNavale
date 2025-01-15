@@ -17,6 +17,9 @@ std::ostream& operator<<(std::ostream& os, const Casella& casella)
     case StatoCasella::Stato::occupata:
         os << casella.coordinata_x << casella.coordinata_y << "(N)";
         break;
+    case StatoCasella::Stato::colpita:
+        os << "(X)";
+        break;
     default:
         os << "Stato non valido";
         break;

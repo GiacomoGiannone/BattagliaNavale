@@ -157,6 +157,7 @@ int main()
                 std::cout << "Errore: nessuna nave selezionata!" << std::endl;
             }
         }
+        partita->StampaGriglia(giocatore);
         partita->ResetTurnoSchieramento();
         currNumNavi = maxNumNavi;
     }
@@ -189,6 +190,26 @@ int main()
             std::cin >> posizioneY;
             gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
         }
+
+        partita->StampaGriglia(giocatore2);
+        std::cout << "---------------" << std::endl;
+        partita->StampaGriglia(mainPlayer);
+        std::cout << "--------------------------------------------------------------" << std::endl;
     }
+    ClearConsole();
+    std::cout << "Un giocatore ha perso tutte le navi! partita finita, controllo il vincitore..." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    ////////////////////////////////// FINE DELLA PARTE RELATIVA ALL' ATTACCO //////////////////////////////////
+
+    
+    ////////////////////////////////// PARTE RELATIVA ALLA FINE DELLA PARTITA //////////////////////////////////
+    if (partita->isOver())
+    {
+        std::cout << "Il vincitore e': " << partita->getWinner()->getNickname() << std::endl;
+        gioco.GestisciFinePartita();
+    }
+    
+    //chiedi se si vuole giocare un'altra partita
+
     return 0;
 }

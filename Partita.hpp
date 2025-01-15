@@ -25,7 +25,6 @@ private:
 	Griglia *griglia_posizioni_1, *griglia_posizioni_2;
 	Stato stato;
 	std::vector<NaveSchierata*> navi;
-	Stato statoInterno;
 
 	Giocatore* getInstanceByNick(std::string nick);
 	bool GeneraEsito(StatoCasella stato);
@@ -51,6 +50,8 @@ public:
 	std::pair<int, int> getDimGriglia();
 	bool isOver();
 	Turno* getLastValidTurno();
+	void setStato(Stato nuovoStato);
+	Giocatore* getWinner();
 };
 
 #endif
