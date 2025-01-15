@@ -26,8 +26,6 @@ public:
 	Casella* FindCasella(int x, char y);
 	void AggiornaGriglia();
 	Giocatore* getGiocatore();
-	/*std:vector<Attacco> getListaAttacchi() { return ListaAttacchi; }
-	std::pair<int, int> getDim() { return dim; }*/
 	void CreateAttacco(int x, char y, bool esito);
 	void StampaGriglia();
 	bool isOver();

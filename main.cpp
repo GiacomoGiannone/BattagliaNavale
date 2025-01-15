@@ -88,7 +88,7 @@ int main()
                 std::cout << nome << ": " << numero << " disponibili" << std::endl;
             }
             //aggiungere messaggio che comunica id delle navi
-            std::cout << "Inserire id della nave che si vuole schierare" << std::endl;
+            std::cout << "Inserire id della nave che si vuole schierare: ";
             std::cout << "Incrociatore(id 1), Corazzata(id 2), Portaerei(id 3), Sottomarino(id 4)" << std::endl;
 
             // Chiedi all'utente di selezionare una nave
@@ -209,7 +209,9 @@ int main()
         gioco.GestisciFinePartita();
     }
     
+    //aggiusta il controllo delle navi adiacenti nella fase di posizionamento
     //chiedi se si vuole giocare un'altra partita
+    //implementa il testing
 
     return 0;
 }
