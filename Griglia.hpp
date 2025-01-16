@@ -29,6 +29,8 @@ public:
 	void CreateAttacco(int x, char y, bool esito);
 	void StampaGriglia();
 	bool isOver();
+	void DrawAttackGrid();
+	Attacco getAttacco(int x, char y);
 };
 
 #endif

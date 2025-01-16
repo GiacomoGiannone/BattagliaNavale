@@ -21,7 +21,7 @@ private:
 	std::vector<std::shared_ptr<Turno>> ListaTurni;
 	Turno* t;
 	//std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
-	Griglia *griglia_attacchi_1, *griglia_attacchi_2;
+	//Griglia *griglia_attacchi_1, *griglia_attacchi_2;
 	Griglia *griglia_posizioni_1, *griglia_posizioni_2;
 	Stato stato;
 	std::vector<NaveSchierata*> navi;
@@ -52,6 +52,7 @@ public:
 	Turno* getLastValidTurno();
 	void setStato(Stato nuovoStato);
 	Giocatore* getWinner();
+	Griglia* getGriglia(Giocatore* g);
 };
 
 #endif

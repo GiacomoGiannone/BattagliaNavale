@@ -153,14 +153,16 @@ Giocatore* Griglia::getGiocatore()
 
 void Griglia::StampaGriglia()
 {
-    if (ListaCaselle.empty()) {
+    if (ListaCaselle.empty())
+    {
         std::cerr << "Errore: ListaCaselle è vuota!" << std::endl;
         return;
     }
 
     for (int i = 0; i < this->dim.first; i++)
     {
-        if (ListaCaselle[i].empty()) {
+        if (ListaCaselle[i].empty()) 
+        {
             std::cerr << "Errore: La riga " << i << " è vuota!" << std::endl;
             continue;
         }
@@ -186,4 +188,75 @@ bool Griglia::isOver()
         }
     }
     return true;
+}
+
+void Griglia::DrawAttackGrid()
+{
+    // Controlla che la lista delle caselle non sia vuota
+    if (ListaCaselle.empty())
+    {
+        std::cerr << "Errore: La griglia è completamente vuota!" << std::endl;
+        return;
+    }
+
+    // Itera attraverso le righe
+    for (int i = 0; i < this->dim.first; i++)
+    {
+        // Controlla che la riga esista
+        if (i >= ListaCaselle.size() || ListaCaselle[i].empty())
+        {
+            std::cerr << "Errore: La riga " << i << " è vuota o non esiste!" << std::endl;
+            continue;
+        }
+
+        // Itera attraverso le colonne
+        for (int j = 0; j < this->dim.second; j++)
+        {
+            // Controlla i limiti della colonna
+            if (j >= ListaCaselle[i].size())
+            {
+                std::cerr << "Errore: La colonna " << j << " nella riga " << i << " non esiste!" << std::endl;
+                std::cout << "? ";
+                continue;
+            }
+
+            // Ottieni il risultato dell'attacco
+            try
+            {
+                auto attacco = getAttacco(i, j + 'A'); // Presuppone che getAttacco gestisca i limiti interni
+                if (attacco.getEsito() == true)
+                {
+                    std::cout << "X ";
+                }
+                else if (attacco.getEsito() == false)
+                {
+                    std::cout << "0 ";
+                }
+                else
+                {
+                    std::cout << "? ";
+                }
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Eccezione catturata per posizione (" << i << ", " << j << "): " << e.what() << std::endl;
+                std::cout << "? ";
+            }
+        }
+
+        // Vai alla nuova riga
+        std::cout << std::endl;
+    }
+}
+
+
+Attacco Griglia::getAttacco(int x, char y)
+{
+    for (auto& attacco : ListaAttacchi)
+    {
+        if (attacco.getCoordinataX() == x && attacco.getCoordinataY() == y)
+        {
+            return attacco;
+        }
+    }
 }

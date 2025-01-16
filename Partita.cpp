@@ -171,8 +171,8 @@ void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGrigl
 		g2 = new Bot(nomeAvversario);
 	}
 
-	griglia_attacchi_1 = new Griglia(dimGriglia, g1);
-	griglia_attacchi_2 = new Griglia(dimGriglia, g2);
+	/*griglia_attacchi_1 = new Griglia(dimGriglia, g1);
+	griglia_attacchi_2 = new Griglia(dimGriglia, g2);*/
 	griglia_posizioni_1 = new Griglia(dimGriglia, g1);
 	griglia_posizioni_2 = new Griglia(dimGriglia, g2);
 
@@ -235,7 +235,7 @@ Turno* Partita::getLastValidTurno()
 {
 	if (!ListaTurni.empty())
 	{
-		return ListaTurni.back().get(); // Converte std::shared_ptr<Turno> in Turno*
+		return ListaTurni.back().get();
 	}
 	return nullptr; // Se ListaTurni è vuoto
 }
@@ -253,4 +253,9 @@ Giocatore* Partita::getWinner()
 	}
 	
 	return g1;
+}
+
+Griglia* Partita::getGriglia(Giocatore* g)
+{
+	return griglia_posizioni_1->getGiocatore()->getNickname() == g->getNickname() ? griglia_posizioni_1 : griglia_posizioni_2;
 }
