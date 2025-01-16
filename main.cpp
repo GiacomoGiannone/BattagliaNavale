@@ -176,10 +176,22 @@ int main()
 
         while (partita->isOver() == false)
         {
+            Giocatore* giocatoreCorrente = nullptr;
 
-            Giocatore* giocatoreCorrente = partita->getLastValidTurno()->getNickGiocatore() == mainPlayer->getNickname() ? mainPlayer : giocatore2;
+            Turno* lastTurno = partita->getLastValidTurnoAttacco() == nullptr ? partita->getLastValidTurnoSchieramento() : partita->getLastValidTurnoAttacco();
+            if (lastTurno == nullptr)
+            {
+                return -1;
+            }
+            else
+            {
+                std::string lastPlayer = lastTurno->getNickGiocatore();
+                giocatoreCorrente = (lastPlayer == mainPlayer->getNickname()) ? giocatore2 : mainPlayer;
+                std::cout << "Turno del giocatore " << giocatoreCorrente->getNickname() << std::endl;
+                std::cout << "L'ultimo turno era del giocatore " << lastTurno->getNickGiocatore() << std::endl;
+            }
             std::cout << "Questa e' la tua griglia delle posizioni: " << std::endl;
-            partita->StampaGriglia(giocatoreCorrente);
+            partita->getGriglia(giocatoreCorrente)->StampaGriglia();
             std::cout << "--------------------------------------------------------------" << std::endl;
             std::cout << "Questa e' la tua griglia degli attacchi: " << std::endl;
             partita->getGriglia(giocatoreCorrente)->DrawAttackGrid();
@@ -187,9 +199,8 @@ int main()
             int posizioneX;
             char posizioneY;
             //controlla se il turno e' del bot
-            if (partita->getLastValidTurno()->getNickGiocatore() == giocatore2->getNickname() && partita->isG2_Umano() == false)
+            if (lastTurno->getNickGiocatore() == mainPlayer->getNickname() && partita->isG2_Umano() == false)
             {
-                std::cout << "L'ultimo turno e' stato del giocatore umano, adesso tocca al bot" << std::endl;
                 posizioneX = rand() % partita->getDimGriglia().first;
                 posizioneY = 'A' + (rand() % partita->getDimGriglia().second);
                 gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
@@ -203,13 +214,6 @@ int main()
                 std::cin >> posizioneY;
                 gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
             }
-
-            /*Giocatore* giocatoreCorrente = partita->getLastValidTurno()->getNickGiocatore() == mainPlayer->getNickname() ? giocatore2 : mainPlayer;
-            std::cout << "Questa e' la tua griglia delle posizioni: " << std::endl;
-            partita->StampaGriglia(giocatoreCorrente);
-            std::cout << "--------------------------------------------------------------" << std::endl;
-            std::cout << "Questa e' la tua griglia degli attacchi: " << std::endl;
-            partita->getGriglia(giocatoreCorrente)->DrawAttackGrid();*/
         }
         ClearConsole();
         std::cout << "Un giocatore ha perso tutte le navi! partita finita, controllo il vincitore..." << std::endl;

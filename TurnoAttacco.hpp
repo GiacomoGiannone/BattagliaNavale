@@ -3,8 +3,6 @@
 #include <iostream>
 #include <vector>
 
-
-
 class TurnoAttacco : public Turno
 {
 private:

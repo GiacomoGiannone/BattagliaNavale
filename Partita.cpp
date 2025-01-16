@@ -62,7 +62,7 @@ void Partita::ResetTurnoSchieramento()
 		std::cout << "Resetto il turno di schieramento di " << t->getNickGiocatore() << std::endl;
 
 		// Aggiungi il turno a ListaTurni come std::shared_ptr
-		ListaTurni.push_back(std::shared_ptr<Turno>(t));
+		ListaTurniSchieramento.push_back(std::shared_ptr<Turno>(t));
 
 		// Imposta t a nullptr per evitare dangling pointer
 		t = nullptr;
@@ -75,7 +75,15 @@ void Partita::ResetTurnoSchieramento()
 
 void Partita::FindCasella(int x, char y)
 {
-	std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
+	std::string lastPlayer;
+	if (ListaTurniAttacco.empty())
+	{
+		lastPlayer = ListaTurniSchieramento.back()->getNickGiocatore();
+	}
+	else
+	{
+		lastPlayer = ListaTurniAttacco.back()->getNickGiocatore();
+	}
 	Giocatore* gTemp = (g1->getNickname() == lastPlayer) ? g2 : g1;
 
 	TurnoAttacco turnoAttacco(gTemp->getNickname());
@@ -116,26 +124,21 @@ void Partita::FindCasella(int x, char y)
 	bool esito = GeneraEsito(casella->getStato());
 	turnoAttacco.CreateAttacco(x, y, grigliaCorrente, esito);
 
-	ListaTurni.push_back(std::make_shared<TurnoAttacco>(turnoAttacco));
+	ListaTurniAttacco.push_back(std::make_shared<TurnoAttacco>(turnoAttacco));
 }
 
 bool Partita::GeneraEsito(StatoCasella stato)
 {
 	if (stato == StatoCasella::acqua)
 	{
-		std::cout << "Acqua!" << std::endl;
 		return false;
 	}
 	else if (stato == StatoCasella::occupata)
 	{
-		std::cout << "Colpito!" << std::endl;
 		return true;
 	}
-	else
-	{
-		std::cout << "Errore!" << std::endl;
-		return false;
-	}
+	
+	return false;
 }
 
 Partita::Stato Partita::getStato()
@@ -231,13 +234,24 @@ bool Partita::isOver()
 	return griglia_posizioni_1->isOver() || griglia_posizioni_2->isOver();
 }
 
-Turno* Partita::getLastValidTurno()
+Turno* Partita::getLastValidTurnoSchieramento()
 {
-	if (!ListaTurni.empty())
+	if (ListaTurniSchieramento.empty())
 	{
-		return ListaTurni.back().get();
+		std::cerr << "Nessun turno schieramento trovato. Restituisco nullptr." << std::endl;
+		return nullptr;
 	}
-	return nullptr; // Se ListaTurni è vuoto
+	return ListaTurniSchieramento.back().get();
+}
+
+Turno* Partita::getLastValidTurnoAttacco()
+{
+	if (ListaTurniAttacco.empty())
+	{
+		std::cerr << "Nessun turno attacco trovato. Restituisco nullptr." << std::endl;
+		return nullptr;
+	}
+	return ListaTurniAttacco.back().get();
 }
 
 void Partita::setStato(Stato nuovoStato)

@@ -18,7 +18,8 @@ public :
 private:
 	Giocatore *g1,*g2;
 	Impostazioni *i;
-	std::vector<std::shared_ptr<Turno>> ListaTurni;
+	std::vector<std::shared_ptr<Turno>> ListaTurniAttacco;
+	std::vector<std::shared_ptr<Turno>> ListaTurniSchieramento;
 	Turno* t;
 	//std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
 	//Griglia *griglia_attacchi_1, *griglia_attacchi_2;
@@ -49,7 +50,8 @@ public:
 	Turno* get_TurnoCorrente();
 	std::pair<int, int> getDimGriglia();
 	bool isOver();
-	Turno* getLastValidTurno();
+	Turno* getLastValidTurnoSchieramento();
+	Turno* getLastValidTurnoAttacco();
 	void setStato(Stato nuovoStato);
 	Giocatore* getWinner();
 	Griglia* getGriglia(Giocatore* g);

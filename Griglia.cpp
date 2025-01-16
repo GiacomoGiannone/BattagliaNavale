@@ -142,7 +142,7 @@ void Griglia::AggiornaGriglia()
 
 void Griglia::CreateAttacco(int x, char y, bool esito)
 {
-	Attacco attacco = Attacco(x, y, esito);
+	Attacco* attacco = new Attacco(x, y, esito);
 	ListaAttacchi.push_back(attacco);
 }
 
@@ -192,27 +192,25 @@ bool Griglia::isOver()
 
 void Griglia::DrawAttackGrid()
 {
-    // Controlla che la lista delle caselle non sia vuota
     if (ListaCaselle.empty())
     {
         std::cerr << "Errore: La griglia è completamente vuota!" << std::endl;
         return;
     }
 
-    // Itera attraverso le righe
     for (int i = 0; i < this->dim.first; i++)
     {
-        // Controlla che la riga esista
         if (i >= ListaCaselle.size() || ListaCaselle[i].empty())
         {
             std::cerr << "Errore: La riga " << i << " è vuota o non esiste!" << std::endl;
+            for (int j = 0; j < this->dim.second; j++)
+                std::cout << "? ";
+            std::cout << std::endl;
             continue;
         }
 
-        // Itera attraverso le colonne
         for (int j = 0; j < this->dim.second; j++)
         {
-            // Controlla i limiti della colonna
             if (j >= ListaCaselle[i].size())
             {
                 std::cerr << "Errore: La colonna " << j << " nella riga " << i << " non esiste!" << std::endl;
@@ -220,15 +218,14 @@ void Griglia::DrawAttackGrid()
                 continue;
             }
 
-            // Ottieni il risultato dell'attacco
-            try
+            auto attacco = getAttacco(i, j + 'A');
+            if (attacco != nullptr)
             {
-                auto attacco = getAttacco(i, j + 'A'); // Presuppone che getAttacco gestisca i limiti interni
-                if (attacco.getEsito() == true)
+                if (attacco->getEsito() == true)
                 {
                     std::cout << "X ";
                 }
-                else if (attacco.getEsito() == false)
+                else if (attacco->getEsito() == false)
                 {
                     std::cout << "0 ";
                 }
@@ -237,26 +234,23 @@ void Griglia::DrawAttackGrid()
                     std::cout << "? ";
                 }
             }
-            catch (const std::exception& e)
+            else
             {
-                std::cerr << "Eccezione catturata per posizione (" << i << ", " << j << "): " << e.what() << std::endl;
                 std::cout << "? ";
             }
         }
-
-        // Vai alla nuova riga
         std::cout << std::endl;
     }
 }
 
-
-Attacco Griglia::getAttacco(int x, char y)
+Attacco* Griglia::getAttacco(int x, char y)
 {
     for (auto& attacco : ListaAttacchi)
     {
-        if (attacco.getCoordinataX() == x && attacco.getCoordinataY() == y)
+        if (attacco->getCoordinataX() == x && attacco->getCoordinataY() == y)
         {
             return attacco;
         }
     }
+    return nullptr;
 }

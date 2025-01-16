@@ -18,7 +18,7 @@ private:
 	std::pair<int, int> dim;
 	Giocatore *g;
 	std::vector<std::vector<Casella*>> ListaCaselle;
-	std::vector<Attacco> ListaAttacchi;
+	std::vector<Attacco*> ListaAttacchi;
 public:
 	Griglia() { g = nullptr; };
 	Griglia(std::pair<int, int> _dim, Giocatore* _g);
@@ -30,7 +30,7 @@ public:
 	void StampaGriglia();
 	bool isOver();
 	void DrawAttackGrid();
-	Attacco getAttacco(int x, char y);
+	Attacco* getAttacco(int x, char y);
 };
 
 #endif
