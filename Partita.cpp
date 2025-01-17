@@ -89,7 +89,8 @@ void Partita::FindCasella(int x, char y)
 	TurnoAttacco turnoAttacco(gTemp->getNickname());
 	std::cout << "Turno di attacco del giocatore " << turnoAttacco.getNickGiocatore() << std::endl;
 
-	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname())? griglia_posizioni_1: griglia_posizioni_2;
+	//grigliaCorrente e' la griglia che viene attaccata
+	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname())? griglia_posizioni_2: griglia_posizioni_1;
 
 	if (!grigliaCorrente)
 	{
@@ -107,6 +108,8 @@ void Partita::FindCasella(int x, char y)
 
 	StatoCasella stato = casella->getStato();
 
+	bool esito = GeneraEsito(stato);
+
 	if (stato == StatoCasella::acqua)
 	{
 		std::cout << "Casella acqua!" << std::endl;
@@ -121,7 +124,6 @@ void Partita::FindCasella(int x, char y)
 		std::cout << "Hai già colpito questa casella!" << std::endl;
 	}
 
-	bool esito = GeneraEsito(casella->getStato());
 	turnoAttacco.CreateAttacco(x, y, grigliaCorrente, esito);
 
 	ListaTurniAttacco.push_back(std::make_shared<TurnoAttacco>(turnoAttacco));

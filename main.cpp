@@ -46,15 +46,23 @@ int main()
         char isBot;
         std::cin >> isBot;
 
-        std::cout << "Impostazioni di default: griglia 10x10, 5 navi" << std::endl;
+        std::cout << "Scelta delle impostazioni" << std::endl;
+        int numNavi;
+        int dimGriglia;
+        std::cout << "Inserisci con quante navi giocare: ";
+        std::cin >> numNavi;
+        std::cout << std::endl;
+        std::cout << "Inserire la dimensione della griglia (solo una dimensione): ";
+        std::cin >> dimGriglia;
+        std::cout << std::endl;
 
         if (isBot == 'Y' || isBot == 'y')
         {
-            gioco.Scegli_Impostazioni(false, std::make_pair(10, 10), 5, SecondPlayerNickname);
+            gioco.Scegli_Impostazioni(false, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
         }
         else
         {
-            gioco.Scegli_Impostazioni(true, std::make_pair(10, 10), 5, SecondPlayerNickname);
+            gioco.Scegli_Impostazioni(true, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
         }
 
         gioco.ConfermaImpostazioni();
@@ -79,7 +87,6 @@ int main()
             {
                 std::cout << "--------------------------------------------------------------" << std::endl;
 
-                // Stampa la griglia del giocatore corrente
                 partita->StampaGriglia(giocatore);
 
                 // Itera attraverso la mappa e stampa il nome della nave e il numero disponibile
@@ -90,15 +97,11 @@ int main()
                     int numero = pair.second;
                     std::cout << nome << ": " << numero << " disponibili" << std::endl;
                 }
-                //aggiungere messaggio che comunica id delle navi
                 std::cout << "Inserire id della nave che si vuole schierare: ";
                 std::cout << "Incrociatore(id 1), Corazzata(id 2), Portaerei(id 3), Sottomarino(id 4)" << std::endl;
 
-                // Chiedi all'utente di selezionare una nave
-                // La logica di scelta della nave del bot va implementata anche in scegliNave
-                // Oltre al successivo sorteggio delle posizioni su cui piazzare le navi
                 int id;
-                //se il turno e' del secondo giocatore ed e' un bot
+                //controlla se il turno e' del secondo giocatore ed e' un bot
                 if (partita->get_TurnoCorrente()->getNickGiocatore() == giocatore2->getNickname() && partita->isG2_Umano() == false)
                 {
                     std::cout << "Il secondo giocatore e' un bot" << std::endl;
@@ -177,6 +180,7 @@ int main()
         while (partita->isOver() == false)
         {
             Giocatore* giocatoreCorrente = nullptr;
+            Giocatore* giocatoreInAttesa = nullptr;
 
             Turno* lastTurno = partita->getLastValidTurnoAttacco() == nullptr ? partita->getLastValidTurnoSchieramento() : partita->getLastValidTurnoAttacco();
             if (lastTurno == nullptr)
@@ -187,6 +191,7 @@ int main()
             {
                 std::string lastPlayer = lastTurno->getNickGiocatore();
                 giocatoreCorrente = (lastPlayer == mainPlayer->getNickname()) ? giocatore2 : mainPlayer;
+                giocatoreInAttesa = (lastPlayer == mainPlayer->getNickname()) ? mainPlayer : giocatore2;
                 std::cout << "Turno del giocatore " << giocatoreCorrente->getNickname() << std::endl;
                 std::cout << "L'ultimo turno era del giocatore " << lastTurno->getNickGiocatore() << std::endl;
             }
@@ -194,7 +199,7 @@ int main()
             partita->getGriglia(giocatoreCorrente)->StampaGriglia();
             std::cout << "--------------------------------------------------------------" << std::endl;
             std::cout << "Questa e' la tua griglia degli attacchi: " << std::endl;
-            partita->getGriglia(giocatoreCorrente)->DrawAttackGrid();
+            partita->getGriglia(giocatoreInAttesa)->DrawAttackGrid();
 
             int posizioneX;
             char posizioneY;
@@ -232,9 +237,19 @@ int main()
         char risposta;
         std::cin >> risposta;
 
-        gameIsRunning = risposta == ('Y' | 'y') ? true : false;
-        //Aggiungi la griglia con gli attacchi in stampa
-        //implementa il testing
+        if (risposta == 'N' || risposta == 'n')
+        {
+            gameIsRunning = false;
         }
+        else if (risposta == 'Y' || risposta == 'y')
+        {
+            gameIsRunning = true;
+        }
+        else
+        {
+            gameIsRunning = false;
+        }
+        //implementa il testing
+    }
     return 0;
 }

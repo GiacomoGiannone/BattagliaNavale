@@ -142,9 +142,11 @@ void Griglia::AggiornaGriglia()
 
 void Griglia::CreateAttacco(int x, char y, bool esito)
 {
-	Attacco* attacco = new Attacco(x, y, esito);
-	ListaAttacchi.push_back(attacco);
+    auto nuovoAttacco = new Attacco(x, y, esito);
+    ListaAttacchi.push_back(nuovoAttacco);
+    std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << " con esito: " << (esito ? "Colpito" : "Acqua") << std::endl;
 }
+
 
 Giocatore* Griglia::getGiocatore()
 {
@@ -200,48 +202,29 @@ void Griglia::DrawAttackGrid()
 
     for (int i = 0; i < this->dim.first; i++)
     {
-        if (i >= ListaCaselle.size() || ListaCaselle[i].empty())
-        {
-            std::cerr << "Errore: La riga " << i << " è vuota o non esiste!" << std::endl;
-            for (int j = 0; j < this->dim.second; j++)
-                std::cout << "? ";
-            std::cout << std::endl;
-            continue;
-        }
-
         for (int j = 0; j < this->dim.second; j++)
         {
-            if (j >= ListaCaselle[i].size())
-            {
-                std::cerr << "Errore: La colonna " << j << " nella riga " << i << " non esiste!" << std::endl;
-                std::cout << "? ";
-                continue;
-            }
-
-            auto attacco = getAttacco(i, j + 'A');
+            auto attacco = getAttacco(i, j + 'A'); // Controlla se l'attacco è stato effettuato
             if (attacco != nullptr)
             {
-                if (attacco->getEsito() == true)
+                if (attacco->getEsito())
                 {
-                    std::cout << "X ";
-                }
-                else if (attacco->getEsito() == false)
-                {
-                    std::cout << "0 ";
+                    std::cout << "X "; // Colpito
                 }
                 else
                 {
-                    std::cout << "? ";
+                    std::cout << "0 "; // Acqua
                 }
             }
             else
             {
-                std::cout << "? ";
+                std::cout << "? "; // Nessun attacco registrato
             }
         }
         std::cout << std::endl;
     }
 }
+
 
 Attacco* Griglia::getAttacco(int x, char y)
 {
