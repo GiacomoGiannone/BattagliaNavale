@@ -237,11 +237,7 @@ int main()
         char risposta;
         std::cin >> risposta;
 
-        if (risposta == 'N' || risposta == 'n')
-        {
-            gameIsRunning = false;
-        }
-        else if (risposta == 'Y' || risposta == 'y')
+        if (risposta == 'Y' || risposta == 'y')
         {
             gameIsRunning = true;
         }
