@@ -19,7 +19,7 @@ class BattagliaNavale
 private:
 	std::vector<Partita*> ListaPartite;
 	std::vector<Giocatore> ListaGiocatori;
-	std::vector<std::unique_ptr<Nave>> ListaNavi;
+	std::vector<std::unique_ptr<Nave> > ListaNavi;
 
 	Nave* naveSelezionata;
 public:

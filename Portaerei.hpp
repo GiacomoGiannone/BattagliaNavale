@@ -5,7 +5,7 @@ class Portaerei : public Nave
 {
 public:
     Portaerei() : Nave(5) {}
-    ~Portaerei() override = default;
+    //~Portaerei() override = default;
 
     std::string getNome() const override
     {

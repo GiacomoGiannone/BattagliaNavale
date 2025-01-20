@@ -5,7 +5,7 @@ class Incrociatore : public Nave
 {
 public:
     Incrociatore() : Nave(2) {}
-    ~Incrociatore() override = default;
+    //~Incrociatore() override = default;
 
     std::string getNome() const override
     {

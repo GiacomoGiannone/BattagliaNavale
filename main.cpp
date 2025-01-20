@@ -73,7 +73,9 @@ int main()
         int maxNumNavi = partita->GetNumeroNavi();
         int currNumNavi = maxNumNavi;
 
-        std::vector<Giocatore*> giocatori = { giocatore2, mainPlayer };
+        std::vector<Giocatore*> giocatori;
+        giocatori.push_back(mainPlayer);
+        giocatori.push_back(giocatore2);
 
         std::this_thread::sleep_for(std::chrono::seconds(3));
         ClearConsole();

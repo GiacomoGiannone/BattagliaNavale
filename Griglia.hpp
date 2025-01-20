@@ -17,7 +17,7 @@ class Griglia
 private:
 	std::pair<int, int> dim;
 	Giocatore *g;
-	std::vector<std::vector<Casella*>> ListaCaselle;
+	std::vector<std::vector<Casella*> > ListaCaselle;
 	std::vector<Attacco*> ListaAttacchi;
 public:
 	Griglia() { g = nullptr; };

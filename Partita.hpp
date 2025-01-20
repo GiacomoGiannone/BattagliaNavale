@@ -18,8 +18,8 @@ public :
 private:
 	Giocatore *g1,*g2;
 	Impostazioni *i;
-	std::vector<std::shared_ptr<Turno>> ListaTurniAttacco;
-	std::vector<std::shared_ptr<Turno>> ListaTurniSchieramento;
+	std::vector<std::shared_ptr<Turno> > ListaTurniAttacco;
+	std::vector<std::shared_ptr<Turno> > ListaTurniSchieramento;
 	Turno* t;
 	//std::map<Giocatore, Griglia*> mapGiocatoreGriglie;
 	//Griglia *griglia_attacchi_1, *griglia_attacchi_2;
