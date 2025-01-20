@@ -30,6 +30,7 @@ int main()
         std::string MainPlayerNickname;
         std::cin >> MainPlayerNickname;
         std::cout << "Benvenuto " << MainPlayerNickname << "!" << std::endl;
+        //commento
 
         Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 

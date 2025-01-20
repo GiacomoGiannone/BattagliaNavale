@@ -147,7 +147,6 @@ void Griglia::CreateAttacco(int x, char y, bool esito)
     std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << " con esito: " << (esito ? "Colpito" : "Acqua") << std::endl;
 }
 
-
 Giocatore* Griglia::getGiocatore()
 {
 	return g;
@@ -224,7 +223,6 @@ void Griglia::DrawAttackGrid()
         std::cout << std::endl;
     }
 }
-
 
 Attacco* Griglia::getAttacco(int x, char y)
 {
