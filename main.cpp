@@ -42,7 +42,7 @@ int main()
         std::string SecondPlayerNickname;
         std::cin >> SecondPlayerNickname;
         std::cout << "Benvenuto " << SecondPlayerNickname << "!" << std::endl;
-        std::cout << "Il secondo giocatore � un bot? (Y/N): ";
+        std::cout << "Il secondo giocatore e' un bot? (Y/N): ";
         char isBot;
         std::cin >> isBot;
 
