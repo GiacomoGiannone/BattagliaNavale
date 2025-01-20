@@ -5,6 +5,8 @@
             "label": "C/C++: clang compila il file attivo",
             "command": "/usr/bin/clang",
             "args": [
+                "--std",
+                "c++14",
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
                 "-g",
