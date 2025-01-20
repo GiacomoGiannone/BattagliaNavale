@@ -30,7 +30,6 @@ int main()
         std::string MainPlayerNickname;
         std::cin >> MainPlayerNickname;
         std::cout << "Benvenuto " << MainPlayerNickname << "!" << std::endl;
-        //commento
 
         Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 
@@ -43,7 +42,7 @@ int main()
         std::string SecondPlayerNickname;
         std::cin >> SecondPlayerNickname;
         std::cout << "Benvenuto " << SecondPlayerNickname << "!" << std::endl;
-        std::cout << "Il secondo giocatore è un bot? (Y/N): ";
+        std::cout << "Il secondo giocatore ï¿½ un bot? (Y/N): ";
         char isBot;
         std::cin >> isBot;
 

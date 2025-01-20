@@ -4,7 +4,6 @@
 #define CASELLA_HPP
 
 #include <iostream>
-#include <Windows.h>
 #include "StatoCasella.hpp"
 
 class Casella
