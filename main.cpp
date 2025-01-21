@@ -1,3 +1,5 @@
+#ifndef TEST_MODE
+
 #include <iostream>
 #include <time.h>
 
@@ -251,3 +253,5 @@ int main()
     }
     return 0;
 }
+
+#endif

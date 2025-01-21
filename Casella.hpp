@@ -24,6 +24,7 @@ public:
 	const char getCoordinataY() { return coordinata_y; }
 	
 	friend std::ostream& operator<<(std::ostream& os, const Casella& casella);
+	friend bool operator==(const Casella& lhs, const Casella& rhs);
 };
 
 #endif

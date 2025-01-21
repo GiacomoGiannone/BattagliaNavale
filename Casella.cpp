@@ -28,3 +28,8 @@ std::ostream& operator<<(std::ostream& os, const Casella& casella)
     //SetColor(7);
     return os;
 }
+
+bool operator==(const Casella& lhs, const Casella& rhs) 
+{
+    return lhs.coordinata_x == rhs.coordinata_x && lhs.coordinata_y == rhs.coordinata_y && lhs.stato == rhs.stato;
+}

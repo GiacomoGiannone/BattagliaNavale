@@ -21,7 +21,6 @@ Griglia::Griglia(std::pair<int, int> _dim, Giocatore* _g)
 
 std::vector<Casella*> Griglia::ScegliPosizione(int x, char y, std::string direction, int dimNave)
 {
-	std::cout << "Metodo ScegliPosizione Griglia" << std::endl;
     std::vector<Casella*> caselleScelte;
 
     for (int i = 0; i < dimNave; i++)
@@ -144,7 +143,6 @@ void Griglia::CreateAttacco(int x, char y, bool esito)
 {
     auto nuovoAttacco = new Attacco(x, y, esito);
     ListaAttacchi.push_back(nuovoAttacco);
-    std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << " con esito: " << (esito ? "Colpito" : "Acqua") << std::endl;
 }
 
 Giocatore* Griglia::getGiocatore()
@@ -234,4 +232,9 @@ Attacco* Griglia::getAttacco(int x, char y)
         }
     }
     return nullptr;
+}
+
+std::pair<int, int> Griglia::getDim()
+{
+    return dim;
 }

@@ -31,6 +31,7 @@ public:
 	bool isOver();
 	void DrawAttackGrid();
 	Attacco* getAttacco(int x, char y);
+	std::pair<int,int> getDim();
 };
 
 #endif
