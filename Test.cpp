@@ -133,8 +133,6 @@ void testPartita()
     ASSERT_EQUAL(partita->GetNumeroNavi(), 10);
 }
 
-
-
 int main()
 {
 	testCasella();
