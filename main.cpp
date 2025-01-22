@@ -7,6 +7,10 @@
 #include <thread>
 #include <chrono>
 
+#include <fstream>
+#include <string>
+#include <unordered_map>
+
 #include "BattagliaNavale.hpp"
 #include "GiocatoreUmano.hpp"
 
@@ -19,20 +23,82 @@ void ClearConsole()
 #endif
 }
 
+bool VerificaCredenziali(const std::string& filename, const std::string& nickname, const std::string& password) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        return false;
+    }
+
+    std::string storedNickname, storedPassword;
+    while (file >> storedNickname >> storedPassword) {
+        if (storedNickname == nickname && storedPassword == password) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool NicknameEsiste(const std::string& filename, const std::string& nickname) {
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        return false;
+    }
+
+    std::string storedNickname, storedPassword;
+    while (file >> storedNickname >> storedPassword) {
+        if (storedNickname == nickname) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void RegistraNuovoUtente(const std::string& filename, const std::string& nickname, const std::string& password) {
+    std::ofstream file(filename, std::ios::app);
+    if (file.is_open()) {
+        file << nickname << " " << password << "\n";
+    }
+}
+
+std::string GestisciAutenticazione(const std::string& filename) {
+    std::string nickname, password;
+
+    while (true) {
+        std::cout << "Inserisci il tuo nickname: ";
+        std::cin >> nickname;
+
+        if (NicknameEsiste(filename, nickname)) {
+            std::cout << "Una vecchia conoscenza! Inserisci la password: ";
+            std::cin >> password;
+
+            if (VerificaCredenziali(filename, nickname, password)) {
+                std::cout << "Accesso effettuato con successo!" << std::endl;
+                return nickname;
+            } else {
+                std::cout << "Password errata. Riprova." << std::endl;
+            }
+        } else {
+            std::cout << "Oh, un nuovo utente, piacere! Inserisci una password per registrarti: ";
+            std::cin >> password;
+            RegistraNuovoUtente(filename, nickname, password);
+            std::cout << "Registrazione completata con successo!" << std::endl;
+            return nickname;
+        }
+    }
+}
+
 int main()
 {
     srand(time(0));
     BattagliaNavale gioco;
     bool gameIsRunning = true;
+    const std::string filename = "utenti.txt";
 
     while (gameIsRunning)
     {
         std::cout << "Benvenuto in Battaglia Navale!" << std::endl;
-        std::cout << "Inserisci il tuo nickname: ";
-        std::string MainPlayerNickname;
-        std::cin >> MainPlayerNickname;
-        std::cout << "Benvenuto " << MainPlayerNickname << "!" << std::endl;
-
+        std::string MainPlayerNickname = GestisciAutenticazione(filename);
+        std::cout << "Benvenuto, " << MainPlayerNickname << "!" << std::endl;
         Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 
         gioco.IniziaNuovaPartita(mainPlayer);
@@ -40,13 +106,45 @@ int main()
         std::this_thread::sleep_for(std::chrono::seconds(3));
         ClearConsole();
 
-        std::cout << "Inserisci il nickname del tuo avversario: ";
-        std::string SecondPlayerNickname;
-        std::cin >> SecondPlayerNickname;
-        std::cout << "Benvenuto " << SecondPlayerNickname << "!" << std::endl;
         std::cout << "Il secondo giocatore e' un bot? (Y/N): ";
         char isBot;
         std::cin >> isBot;
+        std::string SecondPlayerNickname;
+        if (isBot == 'Y' || isBot == 'y') {
+            std::cout << "Inserisci il nickname del bot avversario: ";
+            std::cin >> SecondPlayerNickname;
+        } else {
+             while (true) {
+                std::cout << "Inserisci il nickname del tuo avversario: ";
+                std::cin >> SecondPlayerNickname;
+                if (SecondPlayerNickname == MainPlayerNickname) {
+                    std::cout << "Il nickname del secondo giocatore non puo' essere uguale a quello del primo. Riprova." << std::endl;
+                    continue;
+                }
+                if (NicknameEsiste(filename, SecondPlayerNickname)) {
+                    std::string password;
+                    std::cout << "Bentornato anche tu, " << SecondPlayerNickname << "! Inserisci la password: ";
+                    std::cin >> password;
+
+                    if (VerificaCredenziali(filename, SecondPlayerNickname, password)) {
+                        std::cout << "Accesso effettuato con successo!" << std::endl;
+                        break;
+                    } else {
+                        std::cout << "Password errata. Riprova." << std::endl;
+                    }
+                } else {
+                    std::string password;
+                    std::cout << "Oh, un nuovo avversario! Inserisci una password per registrarti: ";
+                    std::cin >> password;
+                    RegistraNuovoUtente(filename, SecondPlayerNickname, password);
+                    std::cout << "Registrazione completata con successo!" << std::endl;
+                    break;
+                }
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+        ClearConsole();
 
         std::cout << "Scelta delle impostazioni" << std::endl;
         int numNavi;
