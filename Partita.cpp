@@ -23,7 +23,7 @@ bool Partita::creaTurno(Giocatore* g)
 		return false;
 	}
 	std::string nickGiocatore = g->getNickname();
-	std::cout << "Creo turno di schieramento del giocatore "<< nickGiocatore << std::endl;
+	//std::cout << "Creo turno di schieramento del giocatore "<< nickGiocatore << std::endl;
 	t = new TurnoSchieramento(nickGiocatore);
 	//alla fine del turno di schieramento di g, fai delete t in modo da poter creare un nuovo turno per g2
 	return true;

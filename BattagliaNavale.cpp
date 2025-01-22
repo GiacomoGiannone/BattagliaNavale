@@ -41,22 +41,22 @@ bool BattagliaNavale::ScegliNave(int id)
 		switch (id)
 		{
 		case(1):
-			std::cout << "Incrociatore selezionato" << std::endl;
+			//std::cout << "Incrociatore selezionato" << std::endl;
 			naveSelezionata = new Incrociatore();
 			naveScelta = true;
 			break;
 		case(2):
-			std::cout << "Corazzata selezionata" << std::endl;
+			//std::cout << "Corazzata selezionata" << std::endl;
 			naveSelezionata = new Corazzata();
 			naveScelta = true;
 			break;
 		case(3):
-			std::cout << "Portaerei selezionata" << std::endl;
+			//std::cout << "Portaerei selezionata" << std::endl;
 			naveSelezionata = new Portaerei();
 			naveScelta = true;
 			break;
 		case(4):
-			std::cout << "Sottomarino selezionato" << std::endl;
+			//std::cout << "Sottomarino selezionato" << std::endl;
 			naveSelezionata = new Sottomarino();
 			naveScelta = true;
 			break;

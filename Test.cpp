@@ -4,9 +4,12 @@
 
 #define IS_TRUE(x) { if (!(x)) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl; }
 #define ASSERT_EQUAL(x,y) { if(x!=y) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl;}
+#define ASSERT_UNEQUAL(x,y) { if(x==y) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl;}
 
 #include "Griglia.hpp"
 #include "Giocatore.hpp"
+#include "BattagliaNavale.hpp"
+#include "Partita.hpp"
 
 //test della casella
 void testCasella()
@@ -75,11 +78,70 @@ void testGriglia()
     delete attacco1, attacco2;
 }
 
+//Test di battagliaNavale
+void testBattagliaNavale()
+{
+    Nave* incrociatore = new Incrociatore();
+    Nave* portaerei = new Portaerei();
+    Nave* sottomarino = new Sottomarino();
+    Nave* corazzata = new Corazzata();
+
+    BattagliaNavale bn;
+    
+    bn.ScegliNave(1);
+    ASSERT_EQUAL(bn.getNave()->getNome(), incrociatore->getNome());
+    
+    bn.ScegliNave(2);
+    ASSERT_EQUAL(bn.getNave()->getNome(), corazzata->getNome());
+
+    bn.ScegliNave(3);
+    ASSERT_EQUAL(bn.getNave()->getNome(), portaerei->getNome());
+
+    bn.ScegliNave(4);
+    ASSERT_EQUAL(bn.getNave()->getNome(), sottomarino->getNome());
+
+    delete incrociatore, portaerei, sottomarino, corazzata;
+}
+
+//Test di partita
+void testPartita()
+{
+    Giocatore* g1 = new Giocatore("G1");
+    Giocatore* g2 = new Giocatore("G2");
+
+    Partita* partita = new Partita(g1);
+
+    partita->creaTurno(g1);
+    ASSERT_EQUAL(partita->get_TurnoCorrente()->getNickGiocatore(), g1->getNickname());
+    partita->ResetTurnoSchieramento();
+    ASSERT_EQUAL(partita->getLastValidTurnoSchieramento()->getNickGiocatore(), g1->getNickname());
+
+    partita->creaTurno(g2);
+    ASSERT_EQUAL(partita->get_TurnoCorrente()->getNickGiocatore(), g2->getNickname());
+    partita->ResetTurnoSchieramento();
+    ASSERT_EQUAL(partita->getLastValidTurnoSchieramento()->getNickGiocatore(), g2->getNickname());
+
+    partita->CreaImpostazioni(false, std::make_pair(15, 15), 10, g2->getNickname());
+    
+    ASSERT_UNEQUAL(partita->getGriglia(g1), nullptr);
+    ASSERT_UNEQUAL(partita->getGriglia(g2), nullptr);
+
+    ASSERT_EQUAL(partita->getGriglia(g1)->getDim(), std::make_pair(15, 15));
+    ASSERT_EQUAL(partita->getGriglia(g2)->getDim(), std::make_pair(15, 15));
+
+    ASSERT_EQUAL(partita->isG2_Umano(), false);
+    ASSERT_EQUAL(partita->GetNumeroNavi(), 10);
+}
+
+
+
 int main()
 {
 	testCasella();
 	testGiocatore();
 	testGriglia();
+    testBattagliaNavale();
+    testPartita();
 }
 
 #endif
