@@ -95,6 +95,36 @@ std::string GestisciAutenticazione(const std::string& utentiFile, const std::str
     }
 }
 
+void AggiornaPunteggio(const std::string& classificaFile, const std::string& nickname, int incremento) {
+    std::ifstream file(classificaFile);
+    std::ofstream tempFile("temp.txt");
+    if (!file.is_open() || !tempFile.is_open()) {
+        std::cerr << "Errore nell'aprire il file della classifica." << std::endl;
+        return;
+    }
+    std::string storedNickname;
+    int punteggio;
+    bool trovato = false;
+    // Copia i dati aggiornando il punteggio del nickname specificato
+    while (file >> storedNickname >> punteggio) {
+        if (storedNickname == nickname) {
+            punteggio += incremento;
+            trovato = true;
+        }
+        tempFile << storedNickname << " " << punteggio << "\n";
+    }
+    if (!trovato) {
+        // Aggiungi il nickname nel caso in cui non fosse trovato (non dovrebbe accadere)
+        tempFile << nickname << " " << incremento << "\n";
+    }
+    file.close();
+    tempFile.close();
+    // Sostituisci il file originale con il file temporaneo
+    std::remove(classificaFile.c_str());
+    std::rename("temp.txt", classificaFile.c_str());
+}
+
+
 int main()
 {
     srand(time(0));
@@ -338,11 +368,18 @@ int main()
 
 
         ////////////////////////////////// PARTE RELATIVA ALLA FINE DELLA PARTITA //////////////////////////////////
-        if (partita->isOver())
-        {
-            std::cout << "Il vincitore e': " << partita->getWinner()->getNickname() << std::endl;
+        if (partita->isOver()) {
+            std::string vincitore = partita->getWinner()->getNickname();
+            std::cout << "Il vincitore e': " << vincitore << std::endl;
+            // Controllo se il vincitore è il giocatore 1 o 2
+            if (vincitore == mainPlayer->getNickname()) {
+                AggiornaPunteggio(classificaFile, vincitore, 1);
+            } else if (vincitore == giocatore2->getNickname() && partita->isG2_Umano()) {
+                AggiornaPunteggio(classificaFile, vincitore, 1);
+            }
             gioco.GestisciFinePartita();
         }
+
         std::this_thread::sleep_for(std::chrono::seconds(2));
         std::cout << "Giocare un'altra partita? (Y/N): ";
         char risposta;
