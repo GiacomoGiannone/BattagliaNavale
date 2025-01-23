@@ -53,25 +53,33 @@ bool NicknameEsiste(const std::string& filename, const std::string& nickname) {
     return false;
 }
 
-void RegistraNuovoUtente(const std::string& filename, const std::string& nickname, const std::string& password) {
-    std::ofstream file(filename, std::ios::app);
+void AggiornaClassifica(const std::string& classificaFile, const std::string& nickname) {
+    std::ofstream file(classificaFile, std::ios::app);
     if (file.is_open()) {
-        file << nickname << " " << password << "\n";
+        file << nickname << " 0\n";
     }
 }
 
-std::string GestisciAutenticazione(const std::string& filename) {
+void RegistraNuovoUtente(const std::string& utentiFile, const std::string& classificaFile, const std::string& nickname, const std::string& password) {
+    std::ofstream utenti(utentiFile, std::ios::app);
+    if (utenti.is_open()) {
+        utenti << nickname << " " << password << "\n";
+    }
+    AggiornaClassifica(classificaFile, nickname);
+}
+
+std::string GestisciAutenticazione(const std::string& utentiFile, const std::string& classificaFile) {
     std::string nickname, password;
 
     while (true) {
         std::cout << "Inserisci il tuo nickname: ";
         std::cin >> nickname;
 
-        if (NicknameEsiste(filename, nickname)) {
+        if (NicknameEsiste(utentiFile, nickname)) {
             std::cout << "Una vecchia conoscenza! Inserisci la password: ";
             std::cin >> password;
 
-            if (VerificaCredenziali(filename, nickname, password)) {
+            if (VerificaCredenziali(utentiFile, nickname, password)) {
                 std::cout << "Accesso effettuato con successo!" << std::endl;
                 return nickname;
             } else {
@@ -80,7 +88,7 @@ std::string GestisciAutenticazione(const std::string& filename) {
         } else {
             std::cout << "Oh, un nuovo utente, piacere! Inserisci una password per registrarti: ";
             std::cin >> password;
-            RegistraNuovoUtente(filename, nickname, password);
+            RegistraNuovoUtente(utentiFile, classificaFile, nickname, password);
             std::cout << "Registrazione completata con successo!" << std::endl;
             return nickname;
         }
@@ -92,12 +100,13 @@ int main()
     srand(time(0));
     BattagliaNavale gioco;
     bool gameIsRunning = true;
-    const std::string filename = "utenti.txt";
+    const std::string utentiFile = "utenti.txt";
+    const std::string classificaFile = "classifica.txt";
 
     while (gameIsRunning)
     {
         std::cout << "Benvenuto in Battaglia Navale!" << std::endl;
-        std::string MainPlayerNickname = GestisciAutenticazione(filename);
+        std::string MainPlayerNickname = GestisciAutenticazione(utentiFile, classificaFile);
         std::cout << "Benvenuto, " << MainPlayerNickname << "!" << std::endl;
         Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 
@@ -121,12 +130,12 @@ int main()
                     std::cout << "Il nickname del secondo giocatore non puo' essere uguale a quello del primo. Riprova." << std::endl;
                     continue;
                 }
-                if (NicknameEsiste(filename, SecondPlayerNickname)) {
+                if (NicknameEsiste(utentiFile, SecondPlayerNickname)) {
                     std::string password;
                     std::cout << "Bentornato anche tu, " << SecondPlayerNickname << "! Inserisci la password: ";
                     std::cin >> password;
 
-                    if (VerificaCredenziali(filename, SecondPlayerNickname, password)) {
+                    if (VerificaCredenziali(utentiFile, SecondPlayerNickname, password)) {
                         std::cout << "Accesso effettuato con successo!" << std::endl;
                         break;
                     } else {
@@ -136,7 +145,7 @@ int main()
                     std::string password;
                     std::cout << "Oh, un nuovo avversario! Inserisci una password per registrarti: ";
                     std::cin >> password;
-                    RegistraNuovoUtente(filename, SecondPlayerNickname, password);
+                    RegistraNuovoUtente(utentiFile, classificaFile, SecondPlayerNickname, password);
                     std::cout << "Registrazione completata con successo!" << std::endl;
                     break;
                 }
