@@ -1,6 +1,6 @@
-Pippo 4
-sostanco 1
-Pesce 0
+Pippo 6
 EloneMuscolo 3
+sostanco 2
+Ponyo 1
 Gianni 1
-Ponyo 0
+Pesce 0
