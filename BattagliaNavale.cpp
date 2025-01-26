@@ -5,7 +5,7 @@
 #include "Sottomarino.hpp"
 
 
-BattagliaNavale::BattagliaNavale()
+/*BattagliaNavale::BattagliaNavale()
 {
 	ListaNavi.push_back(std::make_unique<Incrociatore>());
 	ListaNavi.push_back(std::make_unique<Corazzata>());
@@ -13,12 +13,12 @@ BattagliaNavale::BattagliaNavale()
 	ListaNavi.push_back(std::make_unique<Sottomarino>());
 
 	naveSelezionata = nullptr;
-}
+}*/
 
-BattagliaNavale::~BattagliaNavale()
+/*BattagliaNavale::~BattagliaNavale()
 {
 
-}
+}*/
 
 void BattagliaNavale::IniziaTurnoSchieramento(Giocatore* g, Partita* p)
 {

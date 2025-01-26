@@ -17,14 +17,37 @@
 class BattagliaNavale
 {
 private:
+	static BattagliaNavale* instance;
 	std::vector<Partita*> ListaPartite;
 	std::vector<Giocatore> ListaGiocatori;
 	std::vector<std::unique_ptr<Nave> > ListaNavi;
 
 	Nave* naveSelezionata;
+
+	BattagliaNavale()
+	{
+		ListaNavi.push_back(std::make_unique<Incrociatore>());
+		ListaNavi.push_back(std::make_unique<Corazzata>());
+		ListaNavi.push_back(std::make_unique<Portaerei>());
+		ListaNavi.push_back(std::make_unique<Sottomarino>());
+
+		naveSelezionata = nullptr;
+	}
+
+	~BattagliaNavale() = default;
 public:
-	BattagliaNavale();
-	~BattagliaNavale();
+	//BattagliaNavale();
+	//~BattagliaNavale();
+	BattagliaNavale(const BattagliaNavale&) = delete;
+	BattagliaNavale& operator=(const BattagliaNavale&) = delete;
+	static BattagliaNavale* getInstance()
+	{
+		if (!instance)
+		{
+			instance = new BattagliaNavale();
+		}
+		return instance;
+	}
 	void IniziaTurnoSchieramento(Giocatore* g, Partita* p);
 	bool ScegliNave(int id);
 	bool ScegliPosizione(int x, char y, std::string direction);

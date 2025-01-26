@@ -151,7 +151,7 @@ void VisualizzaClassifica(const std::string& classificaFile) {
 int main()
 {
     srand(time(0));
-    BattagliaNavale gioco;
+    BattagliaNavale* gioco = BattagliaNavale::getInstance();
     const std::string utentiFile = "utenti.txt";
     const std::string classificaFile = "classifica.txt";
 
@@ -181,7 +181,7 @@ int main()
                          // Codice per giocare
                          Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
 
-                        gioco.IniziaNuovaPartita(mainPlayer);
+                        gioco->IniziaNuovaPartita(mainPlayer);
 
                         std::this_thread::sleep_for(std::chrono::seconds(3));
                         ClearConsole();
@@ -238,16 +238,16 @@ int main()
 
                         if (isBot == 'Y' || isBot == 'y')
                         {
-                            gioco.Scegli_Impostazioni(false, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
+                            gioco->Scegli_Impostazioni(false, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
                         }
                         else
                         {
-                            gioco.Scegli_Impostazioni(true, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
+                            gioco->Scegli_Impostazioni(true, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
                         }
 
-                        gioco.ConfermaImpostazioni();
+                        gioco->ConfermaImpostazioni();
 
-                        Partita* partita = gioco.getPartitaCorrente();
+                        Partita* partita = gioco->getPartitaCorrente();
                         Giocatore* giocatore2 = partita->getGiocatore2();
 
                         int maxNumNavi = partita->GetNumeroNavi();
@@ -263,8 +263,8 @@ int main()
                         ////////////////////////////////// PARTE RELATIVA AL PIAZZAMENTO DELLE NAVI //////////////////////////////////
                         for (auto& giocatore : giocatori)
                         {
-                            std::unordered_map<std::string, int> mappaNavi = gioco.CreaMappaNavi();
-                            gioco.IniziaTurnoSchieramento(giocatore, partita);
+                            std::unordered_map<std::string, int> mappaNavi = gioco->CreaMappaNavi();
+                            gioco->IniziaTurnoSchieramento(giocatore, partita);
                             while (currNumNavi > 0)
                             {
                                 std::cout << "--------------------------------------------------------------" << std::endl;
@@ -293,7 +293,7 @@ int main()
                                 {
                                     std::cin >> id;
                                 }
-                                if (!gioco.ScegliNave(id))
+                                if (!gioco->ScegliNave(id))
                                 {
                                     std::cout << "Errore nella selezione della nave. Riprova!" << std::endl;
                                     continue;
@@ -325,11 +325,11 @@ int main()
                                     std::cin >> direction;
                                 }
 
-                                Nave* naveSelezionata = gioco.getNave();
+                                Nave* naveSelezionata = gioco->getNave();
                                 if (naveSelezionata)
                                 {
                                     std::string nomeNave = naveSelezionata->getNome();
-                                    if (mappaNavi[nomeNave] > 0 && gioco.ScegliPosizione(posizioneX, std::toupper(posizioneY), direction))
+                                    if (mappaNavi[nomeNave] > 0 && gioco->ScegliPosizione(posizioneX, std::toupper(posizioneY), direction))
                                     {
                                         mappaNavi[nomeNave]--;
                                         currNumNavi--;
@@ -390,7 +390,7 @@ int main()
                             {
                                 posizioneX = rand() % partita->getDimGriglia().first;
                                 posizioneY = 'A' + (rand() % partita->getDimGriglia().second);
-                                gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
+                                gioco->ScegliPosizioneAttacco(posizioneX, posizioneY);
                             }
                             else
                             {
@@ -399,7 +399,7 @@ int main()
 
                                 std::cout << "Scegli posizione di attacco Y: ";
                                 std::cin >> posizioneY;
-                                gioco.ScegliPosizioneAttacco(posizioneX, posizioneY);
+                                gioco->ScegliPosizioneAttacco(posizioneX, posizioneY);
                             }
                         }
                         ClearConsole();
@@ -418,7 +418,7 @@ int main()
                             } else if (vincitore == giocatore2->getNickname() && partita->isG2_Umano()) {
                                 AggiornaPunteggio(classificaFile, vincitore, 1);
                             }
-                            gioco.GestisciFinePartita();
+                            gioco->GestisciFinePartita();
                         }
 
                         std::this_thread::sleep_for(std::chrono::seconds(2));
