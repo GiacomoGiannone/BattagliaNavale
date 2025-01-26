@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <unordered_map>
+#include <algorithm> 
 
 #include "BattagliaNavale.hpp"
 #include "GiocatoreUmano.hpp"

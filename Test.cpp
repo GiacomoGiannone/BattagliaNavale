@@ -86,19 +86,19 @@ void testBattagliaNavale()
     Nave* sottomarino = new Sottomarino();
     Nave* corazzata = new Corazzata();
 
-    BattagliaNavale bn;
+    BattagliaNavale* bn = BattagliaNavale::getInstance();
     
-    bn.ScegliNave(1);
-    ASSERT_EQUAL(bn.getNave()->getNome(), incrociatore->getNome());
+    bn->ScegliNave(1);
+    ASSERT_EQUAL(bn->getNave()->getNome(), incrociatore->getNome());
     
-    bn.ScegliNave(2);
-    ASSERT_EQUAL(bn.getNave()->getNome(), corazzata->getNome());
+    bn->ScegliNave(2);
+    ASSERT_EQUAL(bn->getNave()->getNome(), corazzata->getNome());
 
-    bn.ScegliNave(3);
-    ASSERT_EQUAL(bn.getNave()->getNome(), portaerei->getNome());
+    bn->ScegliNave(3);
+    ASSERT_EQUAL(bn->getNave()->getNome(), portaerei->getNome());
 
-    bn.ScegliNave(4);
-    ASSERT_EQUAL(bn.getNave()->getNome(), sottomarino->getNome());
+    bn->ScegliNave(4);
+    ASSERT_EQUAL(bn->getNave()->getNome(), sottomarino->getNome());
 
     delete incrociatore, portaerei, sottomarino, corazzata;
 }

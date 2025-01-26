@@ -8,7 +8,6 @@
 #include <memory>
 
 #include "Giocatore.hpp"
-#include "Impostazioni.hpp"
 #include "NaveSchierata.hpp"
 #include "Casella.hpp"
 

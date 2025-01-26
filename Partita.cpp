@@ -213,7 +213,7 @@ void Partita::StampaNavi()
 
 int Partita::GetNumeroNavi()
 {
-	return i->getNumNavi();
+	return this->numNavi;
 }
 
 Giocatore* Partita::getGiocatore2()
@@ -223,7 +223,7 @@ Giocatore* Partita::getGiocatore2()
 
 bool Partita::isG2_Umano()
 {
-	return i->getGiocatoreUmano();
+	return this->giocatoreUmano;
 }
 
 Turno* Partita::get_TurnoCorrente()
@@ -233,7 +233,7 @@ Turno* Partita::get_TurnoCorrente()
 
 std::pair<int, int> Partita::getDimGriglia()
 {
-	return i->getDimGriglia();
+	return this->dimGriglia;
 }
 
 bool Partita::isOver()

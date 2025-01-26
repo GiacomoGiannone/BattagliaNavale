@@ -213,3 +213,5 @@ void BattagliaNavale::GestisciFinePartita()
 		}
 	}
 }
+
+BattagliaNavale* BattagliaNavale::instance = nullptr;
