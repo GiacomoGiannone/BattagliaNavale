@@ -166,7 +166,12 @@ void Partita::AggiornaGriglia()
 
 void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia,int numNavi,  std::string nomeAvversario)
 {
-	i = new Impostazioni(giocatoreUmano, dimGriglia, numNavi);
+	this->giocatoreUmano = giocatoreUmano;
+	this->dimGriglia = dimGriglia;
+	this->numNavi = numNavi;
+	this->nomeAvversario = nomeAvversario;
+
+	//i = new Impostazioni(giocatoreUmano, dimGriglia, numNavi);
 	if (giocatoreUmano)
 	{
 		g2 = new GiocatoreUmano(nomeAvversario);

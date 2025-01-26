@@ -18,7 +18,7 @@ public :
 	enum Stato { attiva, finita };
 private:
 	Giocatore *g1,*g2;
-	Impostazioni *i;
+	//Impostazioni *i;
 	std::vector<std::shared_ptr<Turno> > ListaTurniAttacco;
 	std::vector<std::shared_ptr<Turno> > ListaTurniSchieramento;
 	Turno* t;
@@ -27,6 +27,10 @@ private:
 	Griglia *griglia_posizioni_1, *griglia_posizioni_2;
 	Stato stato;
 	std::vector<NaveSchierata*> navi;
+	bool giocatoreUmano;
+	std::pair<int, int> dimGriglia;
+	int numNavi;
+	std::string nomeAvversario;
 
 	Giocatore* getInstanceByNick(std::string nick);
 	bool GeneraEsito(StatoCasella stato);

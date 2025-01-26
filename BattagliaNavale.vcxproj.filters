@@ -44,9 +44,6 @@
     <ClInclude Include="Partita.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Impostazioni.hpp">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="Griglia.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>

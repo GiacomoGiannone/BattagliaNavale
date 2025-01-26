@@ -143,7 +143,6 @@
     <ClInclude Include="Giocatore.hpp" />
     <ClInclude Include="GiocatoreUmano.hpp" />
     <ClInclude Include="Griglia.hpp" />
-    <ClInclude Include="Impostazioni.hpp" />
     <ClInclude Include="Incrociatore.hpp" />
     <ClInclude Include="Nave.hpp" />
     <ClInclude Include="NaveSchierata.hpp" />
