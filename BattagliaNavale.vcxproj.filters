@@ -33,6 +33,12 @@
     <ClCompile Include="Test.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Autenticazione.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Classifica.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattagliaNavale.hpp">
@@ -87,6 +93,12 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Bot.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Autenticazione.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Classifica.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

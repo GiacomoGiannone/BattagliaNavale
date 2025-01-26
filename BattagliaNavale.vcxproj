@@ -127,8 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Autenticazione.cpp" />
     <ClCompile Include="BattagliaNavale.cpp" />
     <ClCompile Include="Casella.cpp" />
+    <ClCompile Include="Classifica.cpp" />
     <ClCompile Include="Griglia.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Partita.cpp" />
@@ -136,9 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Attacco.hpp" />
+    <ClInclude Include="Autenticazione.hpp" />
     <ClInclude Include="BattagliaNavale.hpp" />
     <ClInclude Include="Bot.hpp" />
     <ClInclude Include="Casella.hpp" />
+    <ClInclude Include="Classifica.hpp" />
     <ClInclude Include="Corazzata.hpp" />
     <ClInclude Include="Giocatore.hpp" />
     <ClInclude Include="GiocatoreUmano.hpp" />

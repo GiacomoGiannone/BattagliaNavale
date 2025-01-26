@@ -15,6 +15,9 @@
 #include "BattagliaNavale.hpp"
 #include "GiocatoreUmano.hpp"
 
+#include "Autenticazione.hpp"
+#include "Classifica.hpp"
+
 void ClearConsole()
 {
 #ifdef _WIN32
@@ -24,7 +27,7 @@ void ClearConsole()
 #endif
 }
 
-bool VerificaCredenziali(const std::string& filename, const std::string& nickname, const std::string& password) {
+/*bool VerificaCredenziali(const std::string& filename, const std::string& nickname, const std::string& password) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         return false;
@@ -146,19 +149,21 @@ void VisualizzaClassifica(const std::string& classificaFile) {
     while (file >> nickname >> punteggio) {
         std::cout << nickname << ": " << punteggio << std::endl;
     }
-}
-
+}*/
 
 int main()
 {
     srand(time(0));
     BattagliaNavale* gioco = BattagliaNavale::getInstance();
+    Autenticazione* autenticatore = Autenticazione::getInstance();
+    Classifica classifica;
+
     const std::string utentiFile = "utenti.txt";
     const std::string classificaFile = "classifica.txt";
 
     
     std::cout << "Benvenuto in Battaglia Navale!" << std::endl;
-    std::string MainPlayerNickname = GestisciAutenticazione(utentiFile, classificaFile);
+    std::string MainPlayerNickname = autenticatore->GestisciAutenticazione(utentiFile, classificaFile);
     std::cout << "Benvenuto, " << MainPlayerNickname << "!" << std::endl;
    
     // Menu dopo il login
@@ -202,12 +207,12 @@ int main()
                                     std::cout << "Il nickname del secondo giocatore non puo' essere uguale a quello del primo. Riprova." << std::endl;
                                     continue;
                                 }
-                                if (NicknameEsiste(utentiFile, SecondPlayerNickname)) {
+                                if (autenticatore->NicknameEsiste(utentiFile, SecondPlayerNickname)) {
                                     std::string password;
                                     std::cout << "Bentornato anche tu, " << SecondPlayerNickname << "! Inserisci la password: ";
                                     std::cin >> password;
 
-                                    if (VerificaCredenziali(utentiFile, SecondPlayerNickname, password)) {
+                                    if (autenticatore->VerificaCredenziali(utentiFile, SecondPlayerNickname, password)) {
                                         std::cout << "Accesso effettuato con successo!" << std::endl;
                                         break;
                                     } else {
@@ -217,7 +222,7 @@ int main()
                                     std::string password;
                                     std::cout << "Oh, un nuovo avversario! Inserisci una password per registrarti: ";
                                     std::cin >> password;
-                                    RegistraNuovoUtente(utentiFile, classificaFile, SecondPlayerNickname, password);
+                                    autenticatore->RegistraNuovoUtente(utentiFile, classificaFile, SecondPlayerNickname, password);
                                     std::cout << "Registrazione completata con successo!" << std::endl;
                                     break;
                                 }
@@ -415,9 +420,9 @@ int main()
                             std::cout << "Il vincitore e': " << vincitore << std::endl;
                             // Controllo se il vincitore è il giocatore 1 o 2
                             if (vincitore == mainPlayer->getNickname()) {
-                                AggiornaPunteggio(classificaFile, vincitore, 1);
+                                classifica.AggiornaPunteggio(classificaFile, vincitore, 1);
                             } else if (vincitore == giocatore2->getNickname() && partita->isG2_Umano()) {
-                                AggiornaPunteggio(classificaFile, vincitore, 1);
+                                classifica.AggiornaPunteggio(classificaFile, vincitore, 1);
                             }
                             gioco->GestisciFinePartita();
                         }
@@ -441,7 +446,7 @@ int main()
                 case 2:
                 {
                     // Visualizza la classifica
-                    VisualizzaClassifica(classificaFile);
+                    classifica.VisualizzaClassifica(classificaFile);
                     break;
                 }
                 case 3:
