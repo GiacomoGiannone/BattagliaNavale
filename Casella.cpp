@@ -14,7 +14,7 @@ std::ostream& operator<<(std::ostream& os, const Casella& casella)
         break;
     case StatoCasella::Stato::colpita:
         os << "\033[31m"; // Rosso
-        os << "(X)";
+        os << casella.coordinata_x << casella.coordinata_y << "(X)";
         break;
     default:
         os << "\033[0m";
