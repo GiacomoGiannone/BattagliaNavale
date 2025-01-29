@@ -3,6 +3,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <algorithm>
+#include <vector>
 
 void Classifica::AggiornaClassifica(const std::string& classificaFile, const std::string& nickname)
 {
@@ -30,7 +31,7 @@ void Classifica::AggiornaPunteggio(const std::string& classificaFile, const std:
     // Aggiungi o aggiorna il punteggio del nickname
     classifica[nickname] += incremento;
     // Crea un vettore di coppie (nickname, punteggio)
-    std::vector<std::pair<std::string, int>> classificaOrdinata;
+    std::vector<std::pair<std::string, int> > classificaOrdinata;
     for (const auto& entry : classifica) {
         classificaOrdinata.push_back(entry);
     }
