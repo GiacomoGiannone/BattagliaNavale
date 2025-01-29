@@ -14,7 +14,7 @@ public:
 
     void CreateAttacco(int x, char y, Griglia* griglia, bool esito) 
     {
-        std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
+        //std::cout << "Creazione attacco alle coordinate: " << x << ", " << y << std::endl;
 		griglia->CreateAttacco(x, y, esito);
     }
 };

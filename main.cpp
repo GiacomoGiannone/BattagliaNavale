@@ -113,7 +113,6 @@ int main()
                         int dimGriglia;
                         std::cout << "Inserisci con quante navi giocare: ";
                         std::cin >> numNavi;
-                        std::cout << std::endl;
                         std::cout << "Inserire la dimensione della griglia (solo una dimensione): ";
                         std::cin >> dimGriglia;
                         std::cout << std::endl;
@@ -154,16 +153,16 @@ int main()
                                 partita->StampaGriglia(giocatore);
 
                                 // Itera attraverso la mappa e stampa il nome della nave e il numero disponibile
-                                std::cout << "Navi disponibili:" << std::endl;
+                                std::cout << "\nNavi disponibili:" << std::endl;
                                 for (const auto& pair : mappaNavi)
                                 {
                                     const std::string& nome = pair.first;
                                     int numero = pair.second;
                                     std::cout << nome << ": " << numero << " disponibili" << std::endl;
                                 }
-                                std::cout << "Inserire id della nave che si vuole schierare: ";
-                                std::cout << "Incrociatore(id 1), Corazzata(id 2), Portaerei(id 3), Sottomarino(id 4)" << std::endl;
-
+                                std::cout << "Incrociatore(id 1, dim 2), Corazzata(id 2, dim 4), Portaerei(id 3, dim 5), Sottomarino(id 4, dim 3)" << std::endl;
+                                std::cout << "Inserire l'id della nave che si vuole schierare: ";
+                                
                                 int id;
                                 //controlla se il turno e' del secondo giocatore ed e' un bot
                                 if (partita->get_TurnoCorrente()->getNickGiocatore() == giocatore2->getNickname() && partita->isG2_Umano() == false)
@@ -215,7 +214,7 @@ int main()
                                     {
                                         mappaNavi[nomeNave]--;
                                         currNumNavi--;
-                                        std::cout << "Nave " << nomeNave << " piazzata correttamente!" << std::endl;
+                                        std::cout << "Nave " << nomeNave << " piazzata correttamente!\nGriglia aggiornata:" << std::endl;
                                     }
                                     else
                                     {
@@ -256,8 +255,8 @@ int main()
                                 std::string lastPlayer = lastTurno->getNickGiocatore();
                                 giocatoreCorrente = (lastPlayer == mainPlayer->getNickname()) ? giocatore2 : mainPlayer;
                                 giocatoreInAttesa = (lastPlayer == mainPlayer->getNickname()) ? mainPlayer : giocatore2;
-                                std::cout << "Turno del giocatore " << giocatoreCorrente->getNickname() << std::endl;
-                                std::cout << "L'ultimo turno era del giocatore " << lastTurno->getNickGiocatore() << std::endl;
+                                std::cout << "\nTurno del giocatore " << giocatoreCorrente->getNickname() << std::endl;
+                                //std::cout << "L'ultimo turno era del giocatore " << lastTurno->getNickGiocatore() << std::endl;
                             }
                             std::cout << "Questa e' la tua griglia delle posizioni: " << std::endl;
                             partita->getGriglia(giocatoreCorrente)->StampaGriglia();
@@ -272,6 +271,7 @@ int main()
                             {
                                 posizioneX = rand() % partita->getDimGriglia().first;
                                 posizioneY = 'A' + (rand() % partita->getDimGriglia().second);
+                                std::cout << "Attacco alle coordinate: " << posizioneX << ", " << posizioneY << std::endl;
                                 gioco->ScegliPosizioneAttacco(posizioneX, posizioneY);
                             }
                             else

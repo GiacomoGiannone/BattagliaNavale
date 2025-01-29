@@ -31,7 +31,7 @@ bool Partita::creaTurno(Giocatore* g)
 
 std::vector<Casella*> Partita::ScegliPosizione(int x, char y, std::string direction, int dim)
 {
-	std::cout << "Metodo scegli posizione di Partita" << std::endl;
+	//std::cout << "Metodo scegli posizione di Partita" << std::endl;
 	std::string nickGiocatore = t->getNickGiocatore();
 	Giocatore *giocatoreCorrente = getInstanceByNick(nickGiocatore);
 	
@@ -59,7 +59,7 @@ void Partita::ResetTurnoSchieramento()
 {
 	if (t) // Assicurati che t non sia nullptr
 	{
-		std::cout << "Resetto il turno di schieramento di " << t->getNickGiocatore() << std::endl;
+		//std::cout << "Resetto il turno di schieramento di " << t->getNickGiocatore() << std::endl;
 
 		// Aggiungi il turno a ListaTurni come std::shared_ptr
 		ListaTurniSchieramento.push_back(std::shared_ptr<Turno>(t));
@@ -69,7 +69,7 @@ void Partita::ResetTurnoSchieramento()
 	}
 	else
 	{
-		std::cout << "Errore: il turno corrente è già nullo!" << std::endl;
+		std::cout << "Errore: il turno corrente ï¿½ giï¿½ nullo!" << std::endl;
 	}
 }
 
@@ -87,14 +87,14 @@ void Partita::FindCasella(int x, char y)
 	Giocatore* gTemp = (g1->getNickname() == lastPlayer) ? g2 : g1;
 
 	TurnoAttacco turnoAttacco(gTemp->getNickname());
-	std::cout << "Turno di attacco del giocatore " << turnoAttacco.getNickGiocatore() << std::endl;
+	//std::cout << "Turno di attacco del giocatore " << turnoAttacco.getNickGiocatore() << std::endl;
 
 	//grigliaCorrente e' la griglia che viene attaccata
 	Griglia* grigliaCorrente = (griglia_posizioni_1->getGiocatore()->getNickname() == gTemp->getNickname())? griglia_posizioni_2: griglia_posizioni_1;
 
 	if (!grigliaCorrente)
 	{
-		std::cerr << "La griglia corrente non è valida" << std::endl;
+		std::cerr << "La griglia corrente non ï¿½ valida" << std::endl;
 		return;
 	}
 
@@ -112,7 +112,7 @@ void Partita::FindCasella(int x, char y)
 
 	if (stato == StatoCasella::acqua)
 	{
-		std::cout << "Casella acqua!" << std::endl;
+		std::cout << "Acqua!" << std::endl;
 	}
 	else if (stato == StatoCasella::occupata)
 	{
@@ -121,7 +121,7 @@ void Partita::FindCasella(int x, char y)
 	}
 	else if (stato == StatoCasella::colpita)
 	{
-		std::cout << "Hai già colpito questa casella!" << std::endl;
+		std::cout << "Hai giï¿½ colpito questa casella!" << std::endl;
 	}
 
 	turnoAttacco.CreateAttacco(x, y, grigliaCorrente, esito);
@@ -151,7 +151,7 @@ Partita::Stato Partita::getStato()
 void Partita::AggiornaGriglia()
 {
 	/*std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
-	Giocatore* gTemp; //gTemp è il giocatore che deve attaccare
+	Giocatore* gTemp; //gTemp ï¿½ il giocatore che deve attaccare
 	if (g1.getNickname() == lastPlayer)
 	{
 		gTemp = new Giocatore(g2);
@@ -245,7 +245,7 @@ Turno* Partita::getLastValidTurnoSchieramento()
 {
 	if (ListaTurniSchieramento.empty())
 	{
-		std::cerr << "Nessun turno schieramento trovato. Restituisco nullptr." << std::endl;
+		//std::cerr << "Nessun turno schieramento trovato. Restituisco nullptr." << std::endl;
 		return nullptr;
 	}
 	return ListaTurniSchieramento.back().get();
@@ -255,7 +255,7 @@ Turno* Partita::getLastValidTurnoAttacco()
 {
 	if (ListaTurniAttacco.empty())
 	{
-		std::cerr << "Nessun turno attacco trovato. Restituisco nullptr." << std::endl;
+		//std::cerr << "Nessun turno attacco trovato. Restituisco nullptr." << std::endl;
 		return nullptr;
 	}
 	return ListaTurniAttacco.back().get();

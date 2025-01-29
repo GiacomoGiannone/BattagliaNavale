@@ -15,7 +15,7 @@ public:
 	Nave* getNave() { return n; }
 	void PrintInfo() 
 	{
-		std::cout << "Nave: " << n->getNome() << " (" << n->getDimensione() << ")" << std::endl;
+		//std::cout << "Nave: " << n->getNome() << " (" << n->getDimensione() << ")" << std::endl;
 		std::cout << "Caselle: ";
 		for (auto c : caselle) 
 		{

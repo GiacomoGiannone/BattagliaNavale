@@ -22,7 +22,7 @@
 
 void BattagliaNavale::IniziaTurnoSchieramento(Giocatore* g, Partita* p)
 {
-	std::cout << "Inizio turno schieramento" << std::endl;
+	std::cout << "Inizio turno schieramento di " << g->getNickname() << std::endl;
 	p->creaTurno(g);
 }
 
@@ -69,7 +69,7 @@ bool BattagliaNavale::ScegliNave(int id)
 
 bool BattagliaNavale::ScegliPosizione(int x, char y, std::string direction)
 {
-	std::cout << "Metodo scegli posizione BattagliaNavale" << std::endl;
+	//std::cout << "Metodo scegli posizione BattagliaNavale" << std::endl;
 	int dim = naveSelezionata->getDimensione();
 	std::cout << "La nave selezionata e' " << naveSelezionata->getNome() << " di dimensione " << dim << std::endl;
 	for (auto& p : ListaPartite)
