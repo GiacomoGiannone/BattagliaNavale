@@ -5,3 +5,5 @@ Ponyo 1
 Gianni 1
 Pesce 0
 dasdasd 0
+FranceschinoPaneVino 0
+Peppino 0
