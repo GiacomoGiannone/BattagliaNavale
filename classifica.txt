@@ -1,10 +1,10 @@
-Pippo 6
+Pippo 7
 EloneMuscolo 3
 sostanco 2
-Ponyo 1
 Gianni 1
-Pesce 0
-dasdasd 0
-FranceschinoPaneVino 0
-Peppino 0
+Ponyo 1
 biggusDicus 0
+dasdasd 0
+Peppino 0
+FranceschinoPaneVino 0
+Pesce 0

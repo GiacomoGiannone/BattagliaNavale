@@ -113,13 +113,14 @@ void Partita::FindCasella(int x, char y)
 	if (stato == StatoCasella::acqua)
 	{
 		std::cout << "Acqua!" << std::endl;
+		casella->setStato(StatoCasella::mancato);
 	}
 	else if (stato == StatoCasella::occupata)
 	{
 		std::cout << "Colpito!" << std::endl;
 		casella->setStato(StatoCasella::colpita);
 	}
-	else if (stato == StatoCasella::colpita)
+	else if (stato == StatoCasella::colpita || stato == StatoCasella::mancato)
 	{
 		std::cout << "Hai gi� colpito questa casella!" << std::endl;
 	}

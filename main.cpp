@@ -227,6 +227,7 @@ int main()
                                 }
                             }
                             partita->StampaGriglia(giocatore);
+                            std::cout << std::endl;
                             partita->ResetTurnoSchieramento();
                             currNumNavi = maxNumNavi;
                         }

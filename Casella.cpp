@@ -16,6 +16,10 @@ std::ostream& operator<<(std::ostream& os, const Casella& casella)
         os << "\033[31m"; // Rosso
         os << casella.coordinata_x << casella.coordinata_y << "(X)";
         break;
+    case StatoCasella::Stato::mancato:
+        os << "\033[38;5;46m"; //Verde
+        os << casella.coordinata_x << casella.coordinata_y << "(O)";
+        break;
     default:
         os << "\033[0m";
         os << "Stato non valido";

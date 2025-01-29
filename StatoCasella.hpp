@@ -5,7 +5,7 @@
 class StatoCasella
 {
 public:
-    enum Stato { acqua, occupata, colpita };
+    enum Stato { acqua, occupata, colpita, mancato };
 private:
     Stato stato;
 public:
