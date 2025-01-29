@@ -149,6 +149,63 @@ void testPartita()
     ASSERT_EQUAL(partita->GetNumeroNavi(), 10);
 }
 
+void testPartitaCompleta()
+{
+    Giocatore* g1 = new Giocatore("G1");
+    Giocatore* g2 = new Giocatore("G2");
+    Partita partita(g1);
+    BattagliaNavale* bn = BattagliaNavale::getInstance();
+
+    partita.CreaImpostazioni(false, std::make_pair(10, 10), 5, g2->getNickname());
+
+    std::unordered_map<std::string, int> mappaNavi = bn->CreaMappaNavi();
+
+    for (Giocatore* giocatore : { g1, g2 })
+    {
+        bn->IniziaTurnoSchieramento(giocatore, &partita);
+
+        int currNumNavi = 5;
+        while (currNumNavi > 0)
+        {
+            int id = rand() % 4 + 1; 
+
+            if (!bn->ScegliNave(id))
+            {
+                continue;
+            }
+
+            int posizioneX = rand() % 10;
+            char posizioneY = 'A' + (rand() % 10);
+            std::string direction = (rand() % 2 == 0) ? "H" : "V";
+
+            Nave* naveSelezionata = bn->getNave();
+            if (naveSelezionata && mappaNavi[naveSelezionata->getNome()] > 0 && bn->ScegliPosizione(posizioneX, posizioneY, direction))
+            {
+                mappaNavi[naveSelezionata->getNome()]--;
+                currNumNavi--;
+            }
+        }
+        partita.ResetTurnoSchieramento();
+    }
+
+    while (!partita.isOver())
+    {
+        Giocatore* giocatoreCorrente = (partita.getLastValidTurnoAttacco() == nullptr || partita.getLastValidTurnoAttacco()->getNickGiocatore() == g2->getNickname()) ? g1 : g2;
+
+        int posizioneX = rand() % 10;
+        char posizioneY = 'A' + (rand() % 10);
+        bn->ScegliPosizioneAttacco(posizioneX, posizioneY);
+    }
+
+    IS_TRUE(partita.isOver());
+    Giocatore* vincitore = partita.getWinner();
+    ASSERT_UNEQUAL(vincitore, nullptr);
+
+    delete g1;
+    delete g2;
+}
+
+
 int main()
 {
 	testCasella();
@@ -156,6 +213,7 @@ int main()
 	testGriglia();
     testBattagliaNavale();
     testPartita();
+    testPartitaCompleta();
 }
 
 #endif
