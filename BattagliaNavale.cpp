@@ -31,8 +31,8 @@ bool BattagliaNavale::ScegliNave(int id)
 	Partita* partita = getPartitaCorrente();
 	bool naveScelta = false;
 	
-	while (!naveScelta)
-	{
+	//while (!naveScelta)
+	//{
 		if (id < 1 || id > 4)
 		{
 			std::cout << "Nave non valida" << std::endl;
@@ -61,7 +61,7 @@ bool BattagliaNavale::ScegliNave(int id)
 			naveScelta = true;
 			break;
 		}
-	}
+	//}
 	if (naveScelta)
 		return true;
 	return false;

@@ -74,6 +74,18 @@ void testGriglia()
     ASSERT_EQUAL(attacco2->getCoordinataY(), 'A');
     ASSERT_EQUAL(attacco2->getEsito(), false);
 
+    try 
+    {
+        griglia_1.FindCasella(20, 'Z');
+        griglia_2.FindCasella(17, 'K');
+        griglia_3.FindCasella(34, 'M');
+        IS_TRUE(false);
+    }
+    catch (std::out_of_range&) 
+    {
+        IS_TRUE(true);
+    }
+
     delete g1, g2, g3;
     delete attacco1, attacco2;
 }
@@ -98,6 +110,10 @@ void testBattagliaNavale()
     ASSERT_EQUAL(bn->getNave()->getNome(), portaerei->getNome());
 
     bn->ScegliNave(4);
+    ASSERT_EQUAL(bn->getNave()->getNome(), sottomarino->getNome());
+
+    ASSERT_EQUAL(bn->ScegliNave(5), false);
+
     ASSERT_EQUAL(bn->getNave()->getNome(), sottomarino->getNome());
 
     delete incrociatore, portaerei, sottomarino, corazzata;
