@@ -149,22 +149,6 @@ Partita::Stato Partita::getStato()
 	return stato;
 }
 
-void Partita::AggiornaGriglia()
-{
-	/*std::string lastPlayer = ListaTurni.back()->getNickGiocatore();
-	Giocatore* gTemp; //gTemp � il giocatore che deve attaccare
-	if (g1.getNickname() == lastPlayer)
-	{
-		gTemp = new Giocatore(g2);
-	}
-	else
-	{
-		gTemp = new Giocatore(g1);
-	}
-	Griglia grigliaCorrente = (griglia_posizioni_1.getGiocatore().getNickname() == gTemp->getNickname()) ? griglia_posizioni_1 : griglia_posizioni_2;
-	grigliaCorrente.AggiornaGriglia();*/
-}
-
 void Partita::CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia,int numNavi,  std::string nomeAvversario)
 {
 	this->giocatoreUmano = giocatoreUmano;

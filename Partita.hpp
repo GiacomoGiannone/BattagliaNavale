@@ -39,7 +39,6 @@ public:
 	Partita(Giocatore* _g1);
 	bool creaTurno(Giocatore* g);
 	std::vector<Casella*> ScegliPosizione(int x, char y, std::string direction, int dim);
-	void AggiornaGriglia();
 	void FindCasella(int x, char y);
 	void CreaImpostazioni(bool giocatoreUmano, std::pair<int, int> dimGriglia, int numNavi, std::string nomeAvversario);
 	Stato getStato();

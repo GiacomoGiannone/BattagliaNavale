@@ -24,7 +24,6 @@ public:
 	Griglia(std::pair<int, int> _dim, Giocatore* _g);
 	std::vector<Casella*> ScegliPosizione(int x, char y, std::string direction, int dim);
 	Casella* FindCasella(int x, char y);
-	void AggiornaGriglia();
 	Giocatore* getGiocatore();
 	void CreateAttacco(int x, char y, bool esito);
 	void StampaGriglia();

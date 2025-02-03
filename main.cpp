@@ -126,8 +126,6 @@ int main()
                             gioco->Scegli_Impostazioni(true, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
                         }
 
-                        gioco->ConfermaImpostazioni();
-
                         Partita* partita = gioco->getPartitaCorrente();
                         Giocatore* giocatore2 = partita->getGiocatore2();
 

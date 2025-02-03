@@ -128,17 +128,6 @@ Casella* Griglia::FindCasella(int x, char y)
     return ListaCaselle[x][col];
 }
 
-void Griglia::AggiornaGriglia()
-{
-	for (int i = 0; i < this->dim.first; i++)
-	{
-		for (int j = 0; j < this->dim.second; j++)
-		{
-			ListaCaselle[i][j]->AggiornaGriglia();
-		}
-	}
-}
-
 void Griglia::CreateAttacco(int x, char y, bool esito)
 {
     auto nuovoAttacco = new Attacco(x, y, esito);

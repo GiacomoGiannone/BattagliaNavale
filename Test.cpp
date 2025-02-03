@@ -1,15 +1,33 @@
-#ifdef TEST_MODE
+﻿#ifdef TEST_MODE
 
 #include <iostream>
 
 #define IS_TRUE(x) { if (!(x)) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl; }
 #define ASSERT_EQUAL(x,y) { if(x!=y) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl;}
 #define ASSERT_UNEQUAL(x,y) { if(x==y) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << std::endl;}
+#define ASSERT_NOT_NULL(x) { if ((x) == nullptr) std::cout << __FUNCTION__ << " failed on line " << __LINE__ << ": pointer is null" << std::endl; }
 
 #include "Griglia.hpp"
 #include "Giocatore.hpp"
 #include "BattagliaNavale.hpp"
 #include "Partita.hpp"
+#include "GiocatoreUmano.hpp"
+#include "Bot.hpp"
+
+#include <chrono>
+#include <thread>
+#include <unordered_map>
+#include <cctype>
+#include <cstdlib>
+
+void ClearConsole()
+{
+#ifdef _WIN32
+    system("cls"); //Windows
+#else
+    system("clear"); //Unix/Linux/macOS
+#endif
+}
 
 //test della casella
 void testCasella()
@@ -147,64 +165,110 @@ void testPartita()
 
     ASSERT_EQUAL(partita->isG2_Umano(), false);
     ASSERT_EQUAL(partita->GetNumeroNavi(), 10);
-}
-
-void testPartitaCompleta()
-{
-    Giocatore* g1 = new Giocatore("G1");
-    Giocatore* g2 = new Giocatore("G2");
-    Partita partita(g1);
-    BattagliaNavale* bn = BattagliaNavale::getInstance();
-
-    partita.CreaImpostazioni(false, std::make_pair(10, 10), 5, g2->getNickname());
-
-    std::unordered_map<std::string, int> mappaNavi = bn->CreaMappaNavi();
-
-    for (Giocatore* giocatore : { g1, g2 })
-    {
-        bn->IniziaTurnoSchieramento(giocatore, &partita);
-
-        int currNumNavi = 5;
-        while (currNumNavi > 0)
-        {
-            int id = rand() % 4 + 1; 
-
-            if (!bn->ScegliNave(id))
-            {
-                continue;
-            }
-
-            int posizioneX = rand() % 10;
-            char posizioneY = 'A' + (rand() % 10);
-            std::string direction = (rand() % 2 == 0) ? "H" : "V";
-
-            Nave* naveSelezionata = bn->getNave();
-            if (naveSelezionata && mappaNavi[naveSelezionata->getNome()] > 0 && bn->ScegliPosizione(posizioneX, posizioneY, direction))
-            {
-                mappaNavi[naveSelezionata->getNome()]--;
-                currNumNavi--;
-            }
-        }
-        partita.ResetTurnoSchieramento();
-    }
-
-    while (!partita.isOver())
-    {
-        Giocatore* giocatoreCorrente = (partita.getLastValidTurnoAttacco() == nullptr || partita.getLastValidTurnoAttacco()->getNickGiocatore() == g2->getNickname()) ? g1 : g2;
-
-        int posizioneX = rand() % 10;
-        char posizioneY = 'A' + (rand() % 10);
-        bn->ScegliPosizioneAttacco(posizioneX, posizioneY);
-    }
-
-    IS_TRUE(partita.isOver());
-    Giocatore* vincitore = partita.getWinner();
-    ASSERT_UNEQUAL(vincitore, nullptr);
 
     delete g1;
     delete g2;
 }
 
+void testPartitaCompleta() 
+{
+    srand(time(0));
+
+    BattagliaNavale* gioco = BattagliaNavale::getInstance();
+    std::string MainPlayerNickname = "TestPlayer";
+    std::cout << "Benvenuto, " << MainPlayerNickname << "!" << std::endl;
+
+    Giocatore* mainPlayer = new GiocatoreUmano(MainPlayerNickname);
+
+    gioco->IniziaNuovaPartita(mainPlayer);
+
+    std::string SecondPlayerNickname = "BotPlayer";
+
+    int numNavi = 5;
+    int dimGriglia = 10;
+    gioco->Scegli_Impostazioni(false, std::make_pair(dimGriglia, dimGriglia), numNavi, SecondPlayerNickname);
+
+    Partita* partita = gioco->getPartitaCorrente();
+    ASSERT_NOT_NULL(partita);
+    Giocatore* giocatore2 = partita->getGiocatore2();
+    ASSERT_NOT_NULL(giocatore2);
+
+    int maxNumNavi = partita->GetNumeroNavi();
+    for (Giocatore* giocatore : { mainPlayer, giocatore2 }) 
+    {
+        std::unordered_map<std::string, int> mappaNavi = gioco->CreaMappaNavi();
+        gioco->IniziaTurnoSchieramento(giocatore, partita);
+
+        int currNumNavi = maxNumNavi;
+        int tentativi = 0;
+        while (currNumNavi > 0)
+        {
+            tentativi++;
+            int id = rand() % 4 + 1; 
+            if (!gioco->ScegliNave(id)) 
+            {
+                continue;
+            }
+            int posizioneX = rand() % dimGriglia;
+            char posizioneY = 'A' + (rand() % dimGriglia);
+            std::string direction = (rand() % 2 == 0) ? "H" : "V";
+
+            Nave* naveSelezionata = gioco->getNave();
+            if (naveSelezionata && mappaNavi[naveSelezionata->getNome()] > 0 && gioco->ScegliPosizione(posizioneX, std::toupper(posizioneY), direction)) 
+            {
+                mappaNavi[naveSelezionata->getNome()]--;
+                currNumNavi--;
+                std::cout << "Nave " << naveSelezionata->getNome() << " piazzata correttamente!" << std::endl;
+            }
+            else 
+            {
+                std::cout << "Errore nel posizionamento (tentativo " << tentativi << ")." << std::endl;
+            }
+        }
+        partita->StampaGriglia(giocatore);
+        std::cout << std::endl;
+        partita->ResetTurnoSchieramento();
+    }
+
+    std::cout << "I giocatori hanno piazzato tutte le navi" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    ClearConsole();
+
+    std::cout << "Inizia la fase di attacco!" << std::endl;
+    while (!partita->isOver()) 
+    {
+        Giocatore* giocatoreCorrente = nullptr;
+        Turno* ultimoTurnoAttacco = partita->getLastValidTurnoAttacco();
+        if (ultimoTurnoAttacco == nullptr || ultimoTurnoAttacco->getNickGiocatore() == giocatore2->getNickname()) 
+        {
+            giocatoreCorrente = mainPlayer;
+        }
+        else 
+        {
+            giocatoreCorrente = giocatore2;
+        }
+        std::cout << "Turno del giocatore " << giocatoreCorrente->getNickname() << std::endl;
+        partita->getGriglia(giocatoreCorrente)->StampaGriglia();
+        std::cout << "Griglia degli attacchi:" << std::endl;
+        Giocatore* avversario = (giocatoreCorrente == mainPlayer) ? giocatore2 : mainPlayer;
+        partita->getGriglia(avversario)->DrawAttackGrid();
+
+        int posizioneX = rand() % dimGriglia;
+        char posizioneY = 'A' + (rand() % dimGriglia);
+        std::cout << "Attacco alle coordinate: " << posizioneX << ", " << posizioneY << std::endl;
+        gioco->ScegliPosizioneAttacco(posizioneX, posizioneY);
+        ClearConsole();
+    }
+
+    IS_TRUE(partita->isOver());
+    Giocatore* vincitore = partita->getWinner();
+    ASSERT_NOT_NULL(vincitore);
+    std::cout << "Partita finita, vincitore: " << vincitore->getNickname() << std::endl;
+
+    delete partita;
+    delete mainPlayer;
+    delete giocatore2;
+}
 
 int main()
 {

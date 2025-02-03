@@ -4,22 +4,6 @@
 #include "Portaerei.hpp"
 #include "Sottomarino.hpp"
 
-
-/*BattagliaNavale::BattagliaNavale()
-{
-	ListaNavi.push_back(std::make_unique<Incrociatore>());
-	ListaNavi.push_back(std::make_unique<Corazzata>());
-	ListaNavi.push_back(std::make_unique<Portaerei>());
-	ListaNavi.push_back(std::make_unique<Sottomarino>());
-
-	naveSelezionata = nullptr;
-}*/
-
-/*BattagliaNavale::~BattagliaNavale()
-{
-
-}*/
-
 void BattagliaNavale::IniziaTurnoSchieramento(Giocatore* g, Partita* p)
 {
 	std::cout << "Inizio turno schieramento di " << g->getNickname() << std::endl;
@@ -31,8 +15,6 @@ bool BattagliaNavale::ScegliNave(int id)
 	Partita* partita = getPartitaCorrente();
 	bool naveScelta = false;
 	
-	//while (!naveScelta)
-	//{
 		if (id < 1 || id > 4)
 		{
 			std::cout << "Nave non valida" << std::endl;
@@ -61,7 +43,6 @@ bool BattagliaNavale::ScegliNave(int id)
 			naveScelta = true;
 			break;
 		}
-	//}
 	if (naveScelta)
 		return true;
 	return false;
@@ -123,17 +104,6 @@ void BattagliaNavale::ScegliPosizioneAttacco(int x, char y)
 	}
 }
 
-void BattagliaNavale::AggiornaGriglia()
-{
-	for (auto& p : ListaPartite)
-	{
-		if (p->getStato() == Partita::attiva)
-		{
-			p->AggiornaGriglia();
-		}
-	}
-}
-
 void BattagliaNavale::IniziaNuovaPartita(Giocatore* _g1)
 {
 	std::cout << "Inizia nuova partita" << std::endl;
@@ -150,10 +120,6 @@ void BattagliaNavale::Scegli_Impostazioni(bool giocatoreUmano, std::pair<int, in
 			p->CreaImpostazioni(giocatoreUmano, dimGriglia, numNavi, nomeAvversario);
 		}
 	}
-}
-
-void BattagliaNavale::ConfermaImpostazioni()
-{
 }
 
 Partita* BattagliaNavale::getPartitaCorrente()
